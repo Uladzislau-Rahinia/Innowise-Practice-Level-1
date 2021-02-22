@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from "../features/HomePage";
 import LoginPage from "../features/Login";
 import RegisterPage from "../features/Register";
@@ -8,16 +8,16 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path={`/Innowise-Practice-Level-1/`}>
+        <Route exact path={`/`}>
           <HomePage />
         </Route>
-        <Route path={`/Innowise-Practice-Level-1/login`}>
+        <Route path={`/login`}>
           <LoginPage />
         </Route>
-        <Route path={`/Innowise-Practice-Level-1/register`}>
+        <Route path={`/register`}>
           <RegisterPage />
         </Route>
-        <Route path={`/Innowise-Practice-Level-1/create-task`}>
+        <Route path={`/create-task`}>
           <CreateTaskPage />
         </Route>
       </Switch>
