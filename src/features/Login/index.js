@@ -8,12 +8,12 @@ const LoginWrapper = styled.div`
   min-height: 100vh;
   font-family: "Rowdies";
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   background-color: orange;
-  &>span {
-    color:white;
+  & > span {
+    color: white;
     font-size: 50px;
     margin-bottom: 50px;
   }
@@ -24,7 +24,7 @@ const LoginContainer = styled.div`
   height: 400px;
   border-radius: 10px;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
   background-color: white;
   justify-content: space-evenly;
@@ -36,9 +36,9 @@ const LoginPage = () => {
       <span>Todo-List</span>
       <LoginContainer>
         <span>Please Login</span>
-        <TextInput type="text" placeholder="login"/>
-        <TextInput type="password" placeholder="password"/>
-        <Button text="Sign In"/>
+        <TextInput type="text" placeholder="login" />
+        <TextInput type="password" placeholder="password" />
+        <Button text="Sign In" />
       </LoginContainer>
     </LoginWrapper>
   );

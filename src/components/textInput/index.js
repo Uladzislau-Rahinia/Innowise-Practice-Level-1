@@ -10,7 +10,12 @@ const StyledInput = styled.input`
 `;
 
 const TextInput = (props) => {
-  return <StyledInput type={props.type} placeholder={props.placeholder}></StyledInput>;
+  return (
+    <StyledInput
+      type={props.type}
+      placeholder={props.placeholder}
+    ></StyledInput>
+  );
 };
 
 export default TextInput;
