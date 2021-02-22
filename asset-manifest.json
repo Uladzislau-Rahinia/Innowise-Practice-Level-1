@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/Innowise-Practice-Level-1/static/css/main.4a4137e4.chunk.css",
-    "main.js": "/Innowise-Practice-Level-1/static/js/main.f9277a13.chunk.js",
-    "main.js.map": "/Innowise-Practice-Level-1/static/js/main.f9277a13.chunk.js.map",
+    "main.js": "/Innowise-Practice-Level-1/static/js/main.f82fcabf.chunk.js",
+    "main.js.map": "/Innowise-Practice-Level-1/static/js/main.f82fcabf.chunk.js.map",
     "runtime-main.js": "/Innowise-Practice-Level-1/static/js/runtime-main.167a6992.js",
     "runtime-main.js.map": "/Innowise-Practice-Level-1/static/js/runtime-main.167a6992.js.map",
-    "static/js/2.fc40be43.chunk.js": "/Innowise-Practice-Level-1/static/js/2.fc40be43.chunk.js",
-    "static/js/2.fc40be43.chunk.js.map": "/Innowise-Practice-Level-1/static/js/2.fc40be43.chunk.js.map",
+    "static/js/2.819b1ea1.chunk.js": "/Innowise-Practice-Level-1/static/js/2.819b1ea1.chunk.js",
+    "static/js/2.819b1ea1.chunk.js.map": "/Innowise-Practice-Level-1/static/js/2.819b1ea1.chunk.js.map",
     "static/js/3.b7d0c7a7.chunk.js": "/Innowise-Practice-Level-1/static/js/3.b7d0c7a7.chunk.js",
     "static/js/3.b7d0c7a7.chunk.js.map": "/Innowise-Practice-Level-1/static/js/3.b7d0c7a7.chunk.js.map",
     "index.html": "/Innowise-Practice-Level-1/index.html",
     "static/css/main.4a4137e4.chunk.css.map": "/Innowise-Practice-Level-1/static/css/main.4a4137e4.chunk.css.map",
-    "static/js/2.fc40be43.chunk.js.LICENSE.txt": "/Innowise-Practice-Level-1/static/js/2.fc40be43.chunk.js.LICENSE.txt"
+    "static/js/2.819b1ea1.chunk.js.LICENSE.txt": "/Innowise-Practice-Level-1/static/js/2.819b1ea1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.167a6992.js",
-    "static/js/2.fc40be43.chunk.js",
+    "static/js/2.819b1ea1.chunk.js",
     "static/css/main.4a4137e4.chunk.css",
-    "static/js/main.f9277a13.chunk.js"
+    "static/js/main.f82fcabf.chunk.js"
   ]
 }
