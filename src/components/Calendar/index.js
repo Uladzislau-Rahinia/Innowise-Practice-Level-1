@@ -1,10 +1,11 @@
-import React from "react";
+import { React, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import dayConfig from "./dayConfig";
+import Carousel from "../Carousel";
 
 const CalendarContainer = styled.div`
-  max-width: 762px;
-  width: 90%;
+  max-width: 768px;
+  width: 100%;
   height: 200px;
   border: 1px solid red;
   margin-bottom: 20px;
@@ -20,14 +21,6 @@ const CalendarContainer = styled.div`
   }
 `;
 
-const CalendarItemContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  height: 100px;
-`;
-
 const CalendarItem = styled.div`
   width: 50px;
   height: 70px;
@@ -37,7 +30,7 @@ const CalendarItem = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-
+  margin: 10px;
   .day {
     color: grey;
   }
@@ -45,8 +38,15 @@ const CalendarItem = styled.div`
 
 const Calendar = () => {
   let calendarItems = [];
+  const calendarRef = useRef();
+  const [blockWidth, setBlockWidth] = useState(768);
+  useEffect(() => {
+    setBlockWidth(calendarRef.current.offsetWidth);
+  },[]);
+  let show = Math.round(blockWidth/100);
+  console.log("SHOW", show);
   let date = new Date(Date.now());
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 30; i++) {
     calendarItems.push(
       <CalendarItem>
         <span className="day">{dayConfig[date.getDay()]}</span>
@@ -56,9 +56,9 @@ const Calendar = () => {
     date.setDate(date.getDate() + 1);
   }
   return (
-    <CalendarContainer>
+    <CalendarContainer ref={calendarRef}>
       <span>Calendar</span>
-      <CalendarItemContainer>{calendarItems}</CalendarItemContainer>
+      <Carousel show={show}>{calendarItems}</Carousel>
     </CalendarContainer>
   );
 };
