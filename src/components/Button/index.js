@@ -9,10 +9,19 @@ const StyledButton = styled.button`
   border-radius: 10px;
   color: white;
   outline: none;
+  cursor: pointer;
 `;
 
 const Button = (props) => {
-  return <StyledButton>{props.text}</StyledButton>;
+  return (
+    <StyledButton
+      onClick={() => {
+        console.log("button pressed");
+      }}
+    >
+      {props.text}
+    </StyledButton>
+  );
 };
 
 export default Button;

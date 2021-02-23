@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import TaskList from "../../components/TaskList";
 import Calendar from "../../components/Calendar";
+import Button from "../../components/Button";
 
 const TodoListWrapper = styled.div`
   width: 100%;
@@ -15,6 +16,7 @@ const HomePage = () => {
     <TodoListWrapper>
       <Calendar></Calendar>
       <TaskList></TaskList>
+      <Button text={"+ Add new task"} />
     </TodoListWrapper>
   );
 };
