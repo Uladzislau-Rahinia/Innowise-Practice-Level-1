@@ -26,7 +26,7 @@ const Task = styled.div`
   margin-top: 20px;
   display: flex;
   align-items: center;
-
+  cursor: pointer;
   & > * {
     margin-left: 20px;
   }
@@ -37,10 +37,10 @@ const TaskList = (props) => {
   return (
     <TaskListContainer>
       <span>Tasks for this day</span>
-      {props.tasks.map((value) => {
+      {props.tasks.map((value, index) => {
         return(
-        <Task>
-          <input type="checkbox" defaultChecked={value.status} />
+        <Task key={index}>
+          <input type="checkbox" defaultChecked={value.status} onChange={props.handleUpdateStatus} value={index} />
           <span>{value.text}</span>
         </Task>);
       })}

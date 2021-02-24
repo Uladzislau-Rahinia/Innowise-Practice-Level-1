@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import Button from "../../components/Button";
+import TextInput from "../../components/textInput";
+import Calendar from "../../components/Calendar"
 
-const TodoListWrapper = styled.div`
+const TaskCreatorWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -20,10 +23,11 @@ const TasksListContainer = styled.div`
 
 const CreateTaskPage = () => {
   return (
-    <TodoListWrapper>
-      <CalendarContainer></CalendarContainer>
-      <TasksListContainer></TasksListContainer>
-    </TodoListWrapper>
+    <TaskCreatorWrapper>
+      <Calendar></Calendar>
+      <TextInput></TextInput>
+      <Button text="CreateTask"></Button>
+    </TaskCreatorWrapper>
   );
 };
 

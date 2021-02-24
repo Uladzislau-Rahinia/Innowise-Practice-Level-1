@@ -16,10 +16,11 @@ const TodoListWrapper = styled.div`
 
 const HomePage = () => {
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);
-  const [userTasks, setUserTasks] = useState([]);
+  //const [redirectTaskCreator, setRedirectTaskCreator] = useState(false);
+  const [userData, setUserData] = useState([]);
   const [chosenDay, setChosenDay] = useState(format(new Date(Date.now()),"yyyy-MM-dd"));
 
-  console.log(chosenDay);
+  //console.log(isUserLoggedIn, redirectTaskCreator, userData, chosenDay);
 
   useEffect(()=>{
     auth.onAuthStateChanged((user) => {
@@ -32,11 +33,9 @@ const HomePage = () => {
             if (snapshot.exists()) {
               console.log(snapshot.val());
               let data = snapshot.val();
-              console.log(data[chosenDay])
               if(data[chosenDay]) {
-                setUserTasks(data[chosenDay]);
+                setUserData(data[chosenDay]);
               }
-              
             } else {
               console.log("No data available");
             }
@@ -58,13 +57,27 @@ const HomePage = () => {
     });
   };
 
-  console.log(isUserLoggedIn);
+  const handleUpdateStatus = (e) => {
+    let updatedTasks = userData[chosenDay];
+    updatedTasks[e.target.value].status = e.target.checked;
+    let updates = {};
+    updates['/tasks/' + auth.currentUser.uid + '/' + chosenDay] = updatedTasks;
+    database.ref().update(updates).then((value) => {
+      let updatedData = userData;
+      updatedData[chosenDay] = updatedTasks;
+      setUserData(updatedData);
+    });
+  }
+
   return (
     <TodoListWrapper>
       {isUserLoggedIn ? "" : <Redirect to={`/login`} />}
-      <Calendar></Calendar>
-      <TaskList tasks={userTasks}></TaskList>
-      <Button text={"+ Add new task"} />
+      {/*redirectTaskCreator ? <Redirect to={`/create-task`} /> : ""*/}
+      <Calendar chosenDay={chosenDay} handleChoosingDay={(e) => {
+    setChosenDay(e.target.id);
+  }}></Calendar>
+      <TaskList tasks={userData} day={chosenDay} handleUpdateStatus={handleUpdateStatus}></TaskList>
+      <Button text={"+ Add new task"} /*onClick={/*setRedirectTaskCreator(true)}*//>
       <Button onClick={handleLogOut} text={"logout"} />
     </TodoListWrapper>
   );
