@@ -1,0 +1,38 @@
+[debug] [2021-02-23T13:53:28.285Z] ----------------------------------------------------------------------
+[debug] [2021-02-23T13:53:28.287Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2021-02-23T13:53:28.287Z] CLI Version:   9.5.0
+[debug] [2021-02-23T13:53:28.287Z] Platform:      win32
+[debug] [2021-02-23T13:53:28.287Z] Node Version:  v12.16.1
+[debug] [2021-02-23T13:53:28.288Z] Time:          Tue Feb 23 2021 16:53:28 GMT+0300 (Moscow Standard Time)
+[debug] [2021-02-23T13:53:28.289Z] ----------------------------------------------------------------------
+[debug] [2021-02-23T13:53:28.289Z] 
+[debug] [2021-02-23T13:53:28.295Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-02-23T13:53:28.296Z] > authorizing via signed-in user
+[info] i  emulators: Starting emulators: auth, functions, database {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, database"}}
+[debug] [2021-02-23T13:53:30.315Z] [hub] writing locator at C:\Users\admin\AppData\Local\Temp\hub-innowise-practice-level-1.json
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: firestore, hosting, pubsub {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mfirestore, hosting, pubsub\u001b[22m"}}
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[info] i  functions: Stopping Functions Emulator {"metadata":{"emulator":{"name":"functions"},"message":"Stopping Functions Emulator"}}
+[info] i  hub: Stopping emulator hub {"metadata":{"emulator":{"name":"hub"},"message":"Stopping emulator hub"}}
+[debug] [2021-02-23T13:53:32.332Z] Error: Cannot find module 'D:\WebProjects\Work-front\innowise-practice-level-1\functions\package.json'
+Require stack:
+- C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulator.js
+- C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\controller.js
+- C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\commandUtils.js
+- C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\database-get.js
+- C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\index.js
+- C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\index.js
+- C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:982:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:864:27)
+    at Module.require (internal/modules/cjs/loader.js:1044:19)
+    at require (internal/modules/cjs/helpers.js:77:18)
+    at FunctionsEmulator.askInstallNodeVersion (C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulator.js:430:21)
+    at FunctionsEmulator.start (C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulator.js:155:32)
+    at Function.start (C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\registry.js:16:24)
+    at startEmulator (C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\controller.js:88:39)
+    at Object.startAll (C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\controller.js:253:15)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async Command.actionFn (C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\emulators-start.js:26:9)
+[error] 
+[error] Error: An unexpected error has occurred.

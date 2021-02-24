@@ -10,10 +10,13 @@ const StyledInput = styled.input`
 `;
 
 const TextInput = (props) => {
+  //console.log(props.value)
   return (
     <StyledInput
       type={props.type}
       placeholder={props.placeholder}
+      onChange={props.onChange}
+      value={props.value}
     ></StyledInput>
   );
 };

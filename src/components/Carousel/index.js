@@ -16,8 +16,8 @@ const CarouselWrapper = styled.div`
 
 const CarouselContentWrapper = styled.div`
   overflow: hidden;
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
   width: 75%;
   height: 100%;
 `;
@@ -26,7 +26,7 @@ const CarouselContent = styled.div.attrs((props) => ({
   show: props.show,
 }))`
   display: flex;
-  justify-content:center;
+  justify-content: center;
   transition: all 250ms linear;
   width: 100%;
   -ms-overflow-style: none; /* hide scrollbar in IE and Edge */
@@ -70,8 +70,7 @@ const Carousel = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(children.length);
 
-  console.log(show)
-
+  console.log(show);
 
   useEffect(() => {
     setLength(children.length);
@@ -89,7 +88,7 @@ const Carousel = (props) => {
     }
   };
 
-  console.log(currentIndex)
+  console.log(currentIndex);
   return (
     <CarouselContainer>
       <CarouselWrapper>
@@ -102,8 +101,9 @@ const Carousel = (props) => {
             //style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             show={props.show}
           >
-            {children.map((value, index)=>{
-                if(index >= currentIndex && index < currentIndex+show) return value;
+            {children.map((value, index) => {
+              if (index >= currentIndex && index < currentIndex + show)
+                return value;
             })}
           </CarouselContent>
         </CarouselContentWrapper>

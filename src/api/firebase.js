@@ -1,16 +1,36 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyD-O3DabZGajxNhqpGbos1mdK-LQjRzWdE",
-  authDomain: "innowise-practice-level-1.firebaseapp.com",
-  projectId: "innowise-practice-level-1",
-  storageBucket: "innowise-practice-level-1.appspot.com",
-  messagingSenderId: "779327789150",
-  appId: "1:779327789150:web:02033825de1495b993fccf",
-  measurementId: "G-PGHX1BK4SQ",
-  databaseURL: "https://innowise-practice-level-1-default-rtdb.firebaseio.com/",
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-const database = firebase.database();
+import firebase from "firebase";
 
-export default database;
+const {
+  REACT_APP_FIREBASE_API_KEY,
+  REACT_APP_AUTH_DOMAIN,
+  REACT_APP_DATABASE_URL,
+  REACT_APP_PROJECT_ID,
+  REACT_APP_STORAGE_BUCKET,
+  REACT_APP_MESSAGING_SENDER_ID,
+  REACT_APP_APP_ID,
+  REACT_APP_MEASUREMENT_ID,
+} = process.env;
+
+const firebaseConfig = {
+  apiKey: REACT_APP_FIREBASE_API_KEY,
+  authDomain: REACT_APP_AUTH_DOMAIN,
+  projectId: REACT_APP_PROJECT_ID,
+  storageBucket: REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: REACT_APP_MESSAGING_SENDER_ID,
+  appId: REACT_APP_APP_ID,
+  measurementId: REACT_APP_MEASUREMENT_ID,
+  databaseURL: REACT_APP_DATABASE_URL,
+};
+// // Initialize Firebase
+const firebase_app = firebase.initializeApp(firebaseConfig);
+// firebase.analytics();
+const database = firebase_app.database();
+const auth = firebase_app.auth();
+
+// if (window.location.hostname === "localhost") {
+//   // Point to the RTDB emulator running on localhost.
+//   database.useEmulator("localhost", 9000);
+//   auth.useEmulator("localhost", 9099);
+// }
+
+export { database, auth };

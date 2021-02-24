@@ -1,7 +1,8 @@
-import React from "react";
+import { React, useState } from "react";
 import styled from "styled-components";
 import TextInput from "../../components/textInput";
 import Button from "../../components/Button";
+import { auth } from "../../api/firebase";
 
 const LoginWrapper = styled.div`
   width: 100%;
@@ -31,14 +32,43 @@ const LoginContainer = styled.div`
 `;
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        console.log(userCredential.user);
+        window.open("/", "_blank");
+        // ...
+      })
+      .catch((error) => {
+        console.log(error.code);
+        console.log(error.message);
+        // ..
+      });
+  };
+
   return (
     <LoginWrapper>
       <span>Todo-List</span>
       <LoginContainer>
         <span>Please Login</span>
-        <TextInput type="text" placeholder="login" />
-        <TextInput type="password" placeholder="password" />
-        <Button text="Sign In" />
+        <TextInput
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          type="text"
+          placeholder="E-mail"
+        />
+        <TextInput
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          type="password"
+          placeholder="Password"
+        />
+        <Button onClick={handleLogin} text="Sign In" />
       </LoginContainer>
     </LoginWrapper>
   );

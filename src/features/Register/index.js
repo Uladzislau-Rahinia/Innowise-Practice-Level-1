@@ -1,7 +1,8 @@
-import React from "react";
+import { React, useState } from "react";
 import styled from "styled-components";
 import TextInput from "../../components/textInput";
 import Button from "../../components/Button";
+import { auth } from "../../api/firebase";
 
 const RegisterWrapper = styled.div`
   width: 100%;
@@ -31,16 +32,44 @@ const RegisterContainer = styled.div`
 `;
 
 const RegisterPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignUp = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        console.log(userCredential.user);
+        // ...
+      })
+      .catch((error) => {
+        console.log(error.code);
+        console.log(error.message);
+        // ..
+      });
+  };
+
   return (
     <RegisterWrapper>
       <span>Todo-List</span>
       <RegisterContainer>
         <span>Please Register</span>
         <TextInput type="text" placeholder="Username" />
-        <TextInput type="text" placeholder="E-mail" />
-        <TextInput type="password" placeholder="Password" />
+        <TextInput
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          type="text"
+          placeholder="E-mail"
+        />
+        <TextInput
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          type="password"
+          placeholder="Password"
+        />
         <TextInput type="password" placeholder="Comfirm password" />
-        <Button text="Sign Up" />
+        <Button onClick={handleSignUp} text="Sign Up" />
       </RegisterContainer>
     </RegisterWrapper>
   );

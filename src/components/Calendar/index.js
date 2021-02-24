@@ -42,8 +42,8 @@ const Calendar = () => {
   const [blockWidth, setBlockWidth] = useState(768);
   useEffect(() => {
     setBlockWidth(calendarRef.current.offsetWidth);
-  },[]);
-  let show = Math.round(blockWidth/100);
+  }, []);
+  let show = Math.round(blockWidth / 100);
   console.log("SHOW", show);
   let date = new Date(Date.now());
   for (let i = 0; i < 30; i++) {
