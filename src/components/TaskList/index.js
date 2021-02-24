@@ -32,26 +32,18 @@ const Task = styled.div`
   }
 `;
 
-const TaskList = () => {
+const TaskList = (props) => {
+  console.log("TASK LIST", props.tasks);
   return (
     <TaskListContainer>
-      <span>Tasks for today</span>
-      <Task>
-        <input type="checkbox" />
-        <span>Task text header</span>
-      </Task>
-      <Task>
-        <input type="checkbox" />
-        <span>Task text header</span>
-      </Task>
-      <Task>
-        <input type="checkbox" />
-        <span>Task text header</span>
-      </Task>
-      <Task>
-        <input type="checkbox" />
-        <span>Task text header</span>
-      </Task>
+      <span>Tasks for this day</span>
+      {props.tasks.map((value) => {
+        return(
+        <Task>
+          <input type="checkbox" defaultChecked={value.status} />
+          <span>{value.text}</span>
+        </Task>);
+      })}
     </TaskListContainer>
   );
 };

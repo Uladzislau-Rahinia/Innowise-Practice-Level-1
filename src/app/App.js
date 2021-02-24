@@ -4,6 +4,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import { useState } from "react";
 import HomePage from "../features/HomePage";
 import LoginPage from "../features/Login";
 import RegisterPage from "../features/Register";
@@ -11,20 +12,12 @@ import CreateTaskPage from "../features/TaskCreator";
 import { auth } from "../api/firebase";
 
 function App() {
-  const checkIsLoggedIn = () => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        return true;
-      }
-      return false;
-    });
-  };
-
   return (
     <Router>
       <Switch>
-        <Route exact path={`/`}>
-          {checkIsLoggedIn() ? <HomePage /> : <Redirect to="/login" />}
+        <Redirect from={"/"} to={`/home`} exact />
+        <Route path={`/home`}>
+          <HomePage />
         </Route>
         <Route path={`/login`}>
           <LoginPage />

@@ -26,7 +26,7 @@ const CarouselContent = styled.div.attrs((props) => ({
   show: props.show,
 }))`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   transition: all 250ms linear;
   width: 100%;
   -ms-overflow-style: none; /* hide scrollbar in IE and Edge */
@@ -34,11 +34,6 @@ const CarouselContent = styled.div.attrs((props) => ({
 
   ::-webkit-scrollbar {
     display: none;
-  }
-
-  & > * {
-    flex-shrink: 0;
-    flex-grow: 1;
   }
 `;
 

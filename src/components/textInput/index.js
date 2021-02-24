@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledInput = styled.input`
   height: 30px;
-  border: 3px solid orange;
+  border: 3px solid ${(props) => (props.isError ? "red" : "orange")};
   border-radius: 10px;
   width: 280px;
   outline: none;
@@ -17,6 +17,7 @@ const TextInput = (props) => {
       placeholder={props.placeholder}
       onChange={props.onChange}
       value={props.value}
+      isError={props.isError}
     ></StyledInput>
   );
 };

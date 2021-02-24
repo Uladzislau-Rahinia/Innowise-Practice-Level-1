@@ -1,8 +1,11 @@
 import { React, useState } from "react";
+import { Redirect, Link } from "react-router-dom";
 import styled from "styled-components";
 import TextInput from "../../components/textInput";
 import Button from "../../components/Button";
 import { auth } from "../../api/firebase";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginWrapper = styled.div`
   width: 100%;
@@ -34,25 +37,61 @@ const LoginContainer = styled.div`
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isRedirect, setRedirect] = useState(false);
 
   const handleLogin = () => {
+    if (email === "" || password === "") {
+      toast.error("Fill all fields please", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3500,
+      });
+      return;
+    }
+
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        // Signed in
         console.log(userCredential.user);
-        window.open("/", "_blank");
+        setRedirect(true);
         // ...
       })
       .catch((error) => {
+        switch (error.code) {
+          case "auth/invalid-email":
+            toast.error("Enter valid email please", {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3500,
+            });
+            break;
+          case "auth/user-not-found":
+            toast.error("User with this email not found", {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3500,
+            });
+            break;
+          case "auth/wrong-password":
+            toast.error("Wrong password, try again", {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3500,
+            });
+            break;
+          default:
+            toast.error("Something went wrong :(", {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3500,
+            });
+        }
+
         console.log(error.code);
         console.log(error.message);
         // ..
       });
   };
 
+  console.log(isRedirect);
   return (
     <LoginWrapper>
+      {isRedirect ? <Redirect to={`/home`} /> : ""}
       <span>Todo-List</span>
       <LoginContainer>
         <span>Please Login</span>
@@ -69,7 +108,9 @@ const LoginPage = () => {
           placeholder="Password"
         />
         <Button onClick={handleLogin} text="Sign In" />
+        <Link to="/register">Dont have an account? Sign Up here!</Link>
       </LoginContainer>
+      <ToastContainer />
     </LoginWrapper>
   );
 };

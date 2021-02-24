@@ -1,8 +1,11 @@
 import { React, useState } from "react";
+import { Redirect, Link } from "react-router-dom";
 import styled from "styled-components";
 import TextInput from "../../components/textInput";
 import Button from "../../components/Button";
 import { auth } from "../../api/firebase";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterWrapper = styled.div`
   width: 100%;
@@ -34,16 +37,44 @@ const RegisterContainer = styled.div`
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordComfirm, setPasswordConfirm] = useState("");
+  const [isRedirect, setRedirect] = useState(false);
 
   const handleSignUp = () => {
+    if (email === "" || password === "" || passwordComfirm === "") {
+      toast.error("Fill all fields please", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3500,
+      });
+      return;
+    } else if (password !== passwordComfirm) {
+      toast.error("Passwords should match", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3500,
+      });
+      return;
+    }
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        // Signed in
+        setRedirect(true);
         console.log(userCredential.user);
         // ...
       })
       .catch((error) => {
+        switch (error.code) {
+          case "auth/invalid-email":
+            toast.error("Enter valid email please", {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3500,
+            });
+            break;
+          default:
+            toast.error("Something went wrong :(", {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3500,
+            });
+        }
         console.log(error.code);
         console.log(error.message);
         // ..
@@ -52,10 +83,10 @@ const RegisterPage = () => {
 
   return (
     <RegisterWrapper>
+      {isRedirect ? <Redirect to={`/home`} /> : ""}
       <span>Todo-List</span>
       <RegisterContainer>
         <span>Please Register</span>
-        <TextInput type="text" placeholder="Username" />
         <TextInput
           onChange={(e) => setEmail(e.target.value)}
           value={email}
@@ -68,9 +99,16 @@ const RegisterPage = () => {
           type="password"
           placeholder="Password"
         />
-        <TextInput type="password" placeholder="Comfirm password" />
+        <TextInput
+          onChange={(e) => setPasswordConfirm(e.target.value)}
+          value={passwordComfirm}
+          type="password"
+          placeholder="Comfirm password"
+        />
         <Button onClick={handleSignUp} text="Sign Up" />
+        <Link to="/login">Already have an account? Sign In here!</Link>
       </RegisterContainer>
+      <ToastContainer />
     </RegisterWrapper>
   );
 };

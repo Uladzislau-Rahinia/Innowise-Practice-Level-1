@@ -46,6 +46,7 @@ const Calendar = () => {
   let show = Math.round(blockWidth / 100);
   console.log("SHOW", show);
   let date = new Date(Date.now());
+  console.log(Date.now());
   for (let i = 0; i < 30; i++) {
     calendarItems.push(
       <CalendarItem>
