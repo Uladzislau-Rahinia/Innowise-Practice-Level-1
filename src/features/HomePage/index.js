@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import styled from "styled-components";
 import TaskList from "../../components/TaskList";
 import Calendar from "../../components/Calendar";
@@ -24,6 +24,7 @@ const ButtonWrapper = styled.div`
 
 const HomePage = () => {
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
   //const [redirectTaskCreator, setRedirectTaskCreator] = useState(false);
   const [userData, setUserData] = useState({});
   const [chosenDay, setChosenDay] = useState(
@@ -68,16 +69,15 @@ const HomePage = () => {
   const handleUpdateStatus = (e) => {
     let updatedTasks = userData[chosenDay];
     updatedTasks[e.target.value].status = e.target.checked;
+    let updatedData = userData;
+        updatedData[chosenDay] = updatedTasks;
+        setUserData(updatedData);
     let updates = {};
     updates["/tasks/" + auth.currentUser.uid + "/" + chosenDay] = updatedTasks;
     database
       .ref()
-      .update(updates)
-      .then((value) => {
-        let updatedData = userData;
-        updatedData[chosenDay] = updatedTasks;
-        setUserData(updatedData);
-      });
+      .update(updates);
+    forceUpdate();
   };
 
   return (
