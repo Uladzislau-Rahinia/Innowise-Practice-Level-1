@@ -25,9 +25,7 @@ function App() {
         <Route path={`/register`}>
           <RegisterPage />
         </Route>
-        <Route path={`/create-task`}>
-          <CreateTaskPage />
-        </Route>
+        <Route path={`/create-task`} component={CreateTaskPage}></Route>
       </Switch>
     </Router>
   );

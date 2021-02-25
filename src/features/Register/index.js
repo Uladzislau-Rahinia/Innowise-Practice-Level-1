@@ -3,7 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import styled from "styled-components";
 import TextInput from "../../components/textInput";
 import Button from "../../components/Button";
-import { auth } from "../../api/firebase";
+import { database, auth } from "../../api/firebase";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -57,7 +57,14 @@ const RegisterPage = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        setRedirect(true);
+        let tasksRef = database.ref(`tasks/`);
+        let newUser = {};
+        newUser[`${userCredential.user.uid}`] = "";
+        console.log(newUser);
+        tasksRef.update(newUser).then(() => {
+          setRedirect(true);
+        });
+
         console.log(userCredential.user);
         // ...
       })
@@ -68,6 +75,15 @@ const RegisterPage = () => {
               position: toast.POSITION.TOP_CENTER,
               autoClose: 3500,
             });
+            break;
+          case "auth/weak-password":
+            toast.error(
+              "Password is too weak, it should be at least 6 characters",
+              {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3500,
+              }
+            );
             break;
           default:
             toast.error("Something went wrong :(", {

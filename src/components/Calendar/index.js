@@ -24,19 +24,47 @@ const CalendarContainer = styled.div`
 
 const CalendarItem = styled.div`
   width: 50px;
-  height: 70px;
-  border: 2px solid ${props=>props.isChosen? "orange" : "gray"};
-  border-radius: 15px;
+  height: 90px;
+  margin: 10px;
+  .content {
+    height: 70px;
+    border: 2px solid ${(props) => (props.isChosen ? "orange" : "lightgray")};
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    cursor: pointer;
+  }
+  .day {
+    color: ${(props) => (props.isChosen ? "orange" : "gray")};
+  }
+  ${(props) => (props.isChosen ? "color: orange;" : "")}
+`;
+
+const Markers = styled.div`
+  height: 20px;
+  width: 50px;
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin: 10px;
-  cursor: pointer;
-  .day {
-    color: ${props=>props.isChosen? "orange" : "gray"};
+
+  & > * {
+    width: 10px;
+    height: 10px;
+    border: 1px solid orange;
+    border-radius: 50%;
   }
-  ${props=>props.isChosen? "color: orange;" : ""}
+
+  .finished {
+    background-color: orange;
+    display: ${props=>props.hasFinished ? "block" : "none"};
+  }
+
+  .unfinished {
+    display: ${props=>props.hasUnfinished ? "block" : "none"};
+  }
 `;
 
 const Calendar = (props) => {
@@ -52,12 +80,31 @@ const Calendar = (props) => {
   console.log(props.chosenDay);
   let isChosen = false;
   for (let i = 0; i < 30; i++) {
-    if(format(date, "yyyy-MM-dd") === props.chosenDay) isChosen = true;
+    let hasFinished = false;
+    let hasUnfinished = false;
+
+    if (format(date, "yyyy-MM-dd") === props.chosenDay) isChosen = true;
     else isChosen = false;
+    if(props.userData[format(date, "yyyy-MM-dd")]) {
+    Object.entries(props.userData[format(date, "yyyy-MM-dd")]).find((value)=> {
+      if(value[1].status === true) hasFinished = true;
+      else if(value[1].status === false) hasUnfinished = true; 
+    })
+  }
     calendarItems.push(
-      <CalendarItem onClick={props.handleChoosingDay} isChosen={isChosen} id={format(date, "yyyy-MM-dd")}>
-        <span className="day">{dayConfig[date.getDay()]}</span>
-        <span className="date">{date.getDate()}</span>
+      <CalendarItem
+        onClick={props.handleChoosingDay}
+        isChosen={isChosen}
+        id={format(date, "yyyy-MM-dd")}
+      >
+        <div onClick={props.handleChoosingDay} className="content">
+          <div className="day">{dayConfig[date.getDay()]}</div>
+          <div className="date">{date.getDate()}</div>
+        </div>
+        <Markers onClick={props.handleChoosingDay} hasFinished={hasFinished} hasUnfinished={hasUnfinished}>
+          <div className="unfinished"></div>
+          <div className="finished"></div>
+        </Markers>
       </CalendarItem>
     );
     date.setDate(date.getDate() + 1);
