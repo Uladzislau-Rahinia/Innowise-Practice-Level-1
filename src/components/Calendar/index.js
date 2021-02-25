@@ -59,11 +59,11 @@ const Markers = styled.div`
 
   .finished {
     background-color: orange;
-    display: ${props=>props.hasFinished ? "block" : "none"};
+    display: ${(props) => (props.hasFinished ? "block" : "none")};
   }
 
   .unfinished {
-    display: ${props=>props.hasUnfinished ? "block" : "none"};
+    display: ${(props) => (props.hasUnfinished ? "block" : "none")};
   }
 `;
 
@@ -85,23 +85,25 @@ const Calendar = (props) => {
 
     if (format(date, "yyyy-MM-dd") === props.chosenDay) isChosen = true;
     else isChosen = false;
-    if(props.userData[format(date, "yyyy-MM-dd")]) {
-    Object.entries(props.userData[format(date, "yyyy-MM-dd")]).find((value)=> {
-      if(value[1].status === true) hasFinished = true;
-      else if(value[1].status === false) hasUnfinished = true; 
-    })
-  }
+    if (props.userData[format(date, "yyyy-MM-dd")]) {
+      Object.entries(props.userData[format(date, "yyyy-MM-dd")]).find(
+        (value) => {
+          if (value[1].status === true) hasFinished = true;
+          else if (value[1].status === false) hasUnfinished = true;
+        }
+      );
+    }
     calendarItems.push(
       <CalendarItem
         onClick={props.handleChoosingDay}
         isChosen={isChosen}
         id={format(date, "yyyy-MM-dd")}
       >
-        <div onClick={props.handleChoosingDay} className="content">
+        <div className="content">
           <div className="day">{dayConfig[date.getDay()]}</div>
           <div className="date">{date.getDate()}</div>
         </div>
-        <Markers onClick={props.handleChoosingDay} hasFinished={hasFinished} hasUnfinished={hasUnfinished}>
+        <Markers hasFinished={hasFinished} hasUnfinished={hasUnfinished}>
           <div className="unfinished"></div>
           <div className="finished"></div>
         </Markers>

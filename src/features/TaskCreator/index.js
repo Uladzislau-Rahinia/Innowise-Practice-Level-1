@@ -36,11 +36,12 @@ const TaskCreatorContainer = styled.div`
 `;
 
 const CreateTaskPage = (props) => {
-  console.log(props);
+  console.log(props.location);
+  let { isUpdate, textName, taskId, taskDay } = props.location.state;
   const [chosenDay, setChosenDay] = useState(
-    format(new Date(Date.now()), "yyyy-MM-dd")
+    taskDay || format(new Date(Date.now()), "yyyy-MM-dd")
   );
-  const [taskName, setTaskName] = useState("");
+  const [taskName, setTaskName] = useState(textName || "");
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);
 
   useEffect(() => {
@@ -62,19 +63,36 @@ const CreateTaskPage = (props) => {
       });
       return;
     }
-    let userTasksRef = database.ref(
-      `tasks/${auth.currentUser.uid}/${chosenDay}`
-    );
-    let newTask = {
-      text: taskName,
-      status: false,
-    };
-    userTasksRef.push(newTask).then(() => {
-      toast.success("Task successfully saved", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3500,
+
+    if (isUpdate) {
+      let userTasksRef = database.ref(
+        `tasks/${auth.currentUser.uid}/${chosenDay}/${taskId}`
+      );
+      let updatedTask = {
+        text: taskName,
+        status: false,
+      };
+      userTasksRef.update(updatedTask).then(() => {
+        toast.success("Task successfully saved", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3500,
+        });
       });
-    });
+    } else {
+      let userTasksRef = database.ref(
+        `tasks/${auth.currentUser.uid}/${chosenDay}`
+      );
+      let newTask = {
+        text: taskName,
+        status: false,
+      };
+      userTasksRef.push(newTask).then(() => {
+        toast.success("Task successfully saved", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3500,
+        });
+      });
+    }
   };
 
   return (
@@ -85,14 +103,15 @@ const CreateTaskPage = (props) => {
         <span>Choose a day</span>
         <Calendar
           chosenDay={chosenDay}
-          handleChoosingDay={(e) => setChosenDay(e.target.id)}
+          handleChoosingDay={isUpdate ?  (()=>{}) : ((e) => setChosenDay(e.currentTarget.id))}
+          userData={{}}
         ></Calendar>
         <TextInput
           value={taskName}
           onChange={(e) => setTaskName(e.target.value)}
           placeholder="Write your task"
         ></TextInput>
-        <Button onClick={handleTaskSave} text="CreateTask"></Button>
+        <Button onClick={handleTaskSave} text={isUpdate ? "Update task" : "Create Task"}></Button>
         <ButtonLink to="/home" text="Go back" />
       </TaskCreatorContainer>
       <ToastContainer />

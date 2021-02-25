@@ -87,7 +87,7 @@ const HomePage = () => {
       <Calendar
         chosenDay={chosenDay}
         handleChoosingDay={(e) => {
-          setChosenDay(e.target.id);
+          setChosenDay(e.currentTarget.id);
         }}
         userData={userData}
       ></Calendar>

@@ -69,7 +69,17 @@ const TaskList = (props) => {
                 value={value[0]}
               />
               <span>{value[1].text}</span>
-              <Link to="/create-task">
+              <Link
+                to={{
+                  pathname: "/create-task",
+                  state: {
+                    isUpdate: true,
+                    textName: value[1].text,
+                    taskId: value[0],
+                    taskDay: props.day,
+                  },
+                }}
+              >
                 <img src={EditSvg} width={23} height={23} />
               </Link>
             </Task>

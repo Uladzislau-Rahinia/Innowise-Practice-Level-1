@@ -4,12 +4,10 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { useState } from "react";
 import HomePage from "../features/HomePage";
 import LoginPage from "../features/Login";
 import RegisterPage from "../features/Register";
 import CreateTaskPage from "../features/TaskCreator";
-import { auth } from "../api/firebase";
 
 function App() {
   return (
