@@ -5,7 +5,7 @@ import styled from "styled-components";
 const TaskListContainer = styled.div`
   max-width: 768px;
   width: 100%;
-  border: 1px solid red;
+   solid red;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@ const TaskListContainer = styled.div`
 const Task = styled.div`
   width: 80%;
   height: 30px;
-  border: 1px solid blue;
+   solid blue;
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;

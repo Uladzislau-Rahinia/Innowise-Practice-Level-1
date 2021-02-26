@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const StyledLink = styled(Link)`
-  width: 280px;
+  max-width: 280px;
+  width: 40%;
   height: 30px;
   background-color: orange;
   border: 0;

@@ -8,7 +8,7 @@ const CalendarContainer = styled.div`
   max-width: 768px;
   width: 100%;
   height: 200px;
-  border: 1px solid red;
+   solid red;
   margin-bottom: 20px;
   margin-top: 20px;
   display: flex;

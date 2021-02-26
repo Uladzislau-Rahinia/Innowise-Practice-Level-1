@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-  width: 280px;
+  max-width: 280px;
+  width: 40%;
   height: 30px;
   background-color: ${(props) => (props.isDanger ? "red" : "orange")};
   border: 0;
