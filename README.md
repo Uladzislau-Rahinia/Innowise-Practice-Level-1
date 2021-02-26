@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# Innowise Lab Internship: Level 1: Clever to-do list
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To-do list app for Innowise Lab Internship by Uladzislau Rahinia. Created using React and Firebase
 
-## Available Scripts
+## Task
 
-In the project directory, you can run:
+You can find task requirements [here](https://docs.google.com/document/d/1heFuihWrsw14bCpUdr6fla9ysqE6IrsobSMKAOpBiKA/edit)
 
-### `npm start`
+## How to run the app
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This app is hosted on Github Pages. You can use link [here](https://uladzislau-rahinia.github.io/Innowise-Practice-Level-1/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Database snapshot
+    .
+    └──tasks
+        └──uid                            #Unique user id generated when user was signing up
+            └──date                       #Date on which task was assigned in format yyyy-mm-dd
+                └──taskid                 #Unique task id generated on creating task
+                      ├──description      #Task description
+                      ├──status           #Task status (done or not)
+                      └──text             #Task title
 
-### `npm test`
+Screenshot for example: [here](https://imgur.com/a/koZGhWf)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Application stack
 
-### `npm run build`
+List of additional packages I used for this app (aside from React and Firebase)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### React-router
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Used to add routing into app
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Styled components
 
-### `npm run eject`
+Used for more efficient and more deep style customizing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### React-toastify
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Use to add Toast messages in error cases
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Date-fns
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Used to format date in string for better use
 
-## Learn More
+### Gh-pages
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Used to deploy app to Github Pages
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
