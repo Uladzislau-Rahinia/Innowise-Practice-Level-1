@@ -24,7 +24,7 @@ const ButtonWrapper = styled.div`
 
 const HomePage = () => {
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
   //const [redirectTaskCreator, setRedirectTaskCreator] = useState(false);
   const [userData, setUserData] = useState({});
   const [chosenDay, setChosenDay] = useState(
@@ -70,13 +70,11 @@ const HomePage = () => {
     let updatedTasks = userData[chosenDay];
     updatedTasks[e.target.value].status = e.target.checked;
     let updatedData = userData;
-        updatedData[chosenDay] = updatedTasks;
-        setUserData(updatedData);
+    updatedData[chosenDay] = updatedTasks;
+    setUserData(updatedData);
     let updates = {};
     updates["/tasks/" + auth.currentUser.uid + "/" + chosenDay] = updatedTasks;
-    database
-      .ref()
-      .update(updates);
+    database.ref().update(updates);
     forceUpdate();
   };
 

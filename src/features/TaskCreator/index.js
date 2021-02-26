@@ -19,7 +19,6 @@ const TaskCreatorWrapper = styled.div`
 const TaskCreatorContainer = styled.div`
   max-width: 768px;
   width: 100%;
-  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,19 +29,42 @@ const TaskCreatorContainer = styled.div`
   }
 
   & > span {
-    align-self: flex-start;
     font-size: 20px;
   }
 `;
 
+const StyledTextArea = styled.textarea`
+  border: 2px solid orange;
+  width: 280px;
+  height: 200px;
+`;
+
+// const ConfirmationDialog = () => {
+//   return (
+//     <div>
+//       <span>Do you want to delete this?</span>
+//       <button>Yes</button>
+//       <button>Yes</button>
+//     </div>
+//   );
+// }
+
 const CreateTaskPage = (props) => {
   console.log(props.location);
-  let { isUpdate, textName, taskId, taskDay } = props.location.state;
+  let {
+    isUpdate,
+    textName,
+    taskId,
+    taskDay,
+    taskDescription,
+  } = props.location.state;
   const [chosenDay, setChosenDay] = useState(
     taskDay || format(new Date(Date.now()), "yyyy-MM-dd")
   );
   const [taskName, setTaskName] = useState(textName || "");
+  const [description, setDescription] = useState(taskDescription || "");
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);
+  const [isRedirect, setRedirect] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -71,6 +93,7 @@ const CreateTaskPage = (props) => {
       let updatedTask = {
         text: taskName,
         status: false,
+        description: description,
       };
       userTasksRef.update(updatedTask).then(() => {
         toast.success("Task successfully saved", {
@@ -85,33 +108,76 @@ const CreateTaskPage = (props) => {
       let newTask = {
         text: taskName,
         status: false,
+        description: description,
       };
       userTasksRef.push(newTask).then(() => {
-        toast.success("Task successfully saved", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3500,
-        });
+        // toast.success("Task successfully saved", {
+        //   position: toast.POSITION.TOP_CENTER,
+        //   autoClose: 3500,
+        // });
+        setRedirect(true);
       });
     }
+  };
+
+  const handleTaskDelete = () => {
+    // toast(<ConfirmationDialog/>, {
+    //   position: toast.POSITION.TOP_CENTER,
+    //   autoClose: false,
+    // })
+    let userTasksRef = database.ref(
+      `tasks/${auth.currentUser.uid}/${chosenDay}/${taskId}`
+    );
+    userTasksRef.remove().then(() => {
+      // toast.success("Task successfully deleted", {
+      //   position: toast.POSITION.TOP_CENTER,
+      //   autoClose: 3500,
+      // });
+      setRedirect(true);
+    });
   };
 
   return (
     <TaskCreatorWrapper>
       {isUserLoggedIn ? "" : <Redirect to={`/login`} />}
+      {isRedirect ? <Redirect to={`/home`} /> : ""}
       <TaskCreatorContainer>
-        <span>Create or update your task!</span>
-        <span>Choose a day</span>
-        <Calendar
-          chosenDay={chosenDay}
-          handleChoosingDay={isUpdate ?  (()=>{}) : ((e) => setChosenDay(e.currentTarget.id))}
-          userData={{}}
-        ></Calendar>
+        {isUpdate ? (
+          <span>Update your task!</span>
+        ) : (
+          <>
+            <span>Create your task!</span>
+            <span>Choose a day</span>
+            <Calendar
+              chosenDay={chosenDay}
+              handleChoosingDay={(e) => setChosenDay(e.currentTarget.id)}
+              userData={{}}
+            ></Calendar>
+          </>
+        )}
         <TextInput
           value={taskName}
           onChange={(e) => setTaskName(e.target.value)}
           placeholder="Write your task"
         ></TextInput>
-        <Button onClick={handleTaskSave} text={isUpdate ? "Update task" : "Create Task"}></Button>
+        <StyledTextArea
+          placeholder="Write your description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></StyledTextArea>
+        <Button
+          onClick={handleTaskSave}
+          text={isUpdate ? "Update task" : "Create Task"}
+        ></Button>
+        {isUpdate ? (
+          <Button
+            onClick={handleTaskDelete}
+            isDanger={true}
+            text={"Delete task"}
+          ></Button>
+        ) : (
+          ""
+        )}
         <ButtonLink to="/home" text="Go back" />
       </TaskCreatorContainer>
       <ToastContainer />

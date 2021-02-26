@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import EditSvg from "../../assets/edit.svg";
 
 const TaskListContainer = styled.div`
   max-width: 768px;
@@ -47,8 +46,14 @@ const Task = styled.div`
   :hover {
     img {
       display: block;
-      transition: all 150ms;
     }
+  }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  :visited {
+    color: black;
   }
 `;
 
@@ -68,8 +73,7 @@ const TaskList = (props) => {
                 onChange={props.handleUpdateStatus}
                 value={value[0]}
               />
-              <span>{value[1].text}</span>
-              <Link
+              <StyledLink
                 to={{
                   pathname: "/create-task",
                   state: {
@@ -77,11 +81,12 @@ const TaskList = (props) => {
                     textName: value[1].text,
                     taskId: value[0],
                     taskDay: props.day,
+                    taskDescription: value[1].description,
                   },
                 }}
               >
-                <img src={EditSvg} width={23} height={23} />
-              </Link>
+                <span>{value[1].text}</span>
+              </StyledLink>
             </Task>
           );
         })

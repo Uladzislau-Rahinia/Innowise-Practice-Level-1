@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledButton = styled.button`
   width: 280px;
   height: 30px;
-  background-color: orange;
+  background-color: ${(props) => (props.isDanger ? "red" : "orange")};
   border: 0;
   border-radius: 10px;
   color: white;
@@ -13,7 +13,11 @@ const StyledButton = styled.button`
 `;
 
 const Button = (props) => {
-  return <StyledButton onClick={props.onClick}>{props.text}</StyledButton>;
+  return (
+    <StyledButton isDanger={props.isDanger} onClick={props.onClick}>
+      {props.text}
+    </StyledButton>
+  );
 };
 
 export default Button;
