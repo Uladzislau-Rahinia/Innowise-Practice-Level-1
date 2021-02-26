@@ -67,8 +67,9 @@ const HomePage = () => {
   };
 
   const handleUpdateStatus = (e) => {
+    console.log("IS CHECKBOX",e.target, e.currentTarget);
     let updatedTasks = userData[chosenDay];
-    updatedTasks[e.target.value].status = e.target.checked;
+    updatedTasks[e.currentTarget.id].status =  !updatedTasks[e.currentTarget.id].status;
     let updatedData = userData;
     updatedData[chosenDay] = updatedTasks;
     setUserData(updatedData);
