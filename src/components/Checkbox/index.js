@@ -12,18 +12,6 @@ const Icon = styled.svg`
   stroke-width: 2px;
 `;
 
-const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-`;
-
 const StyledCheckbox = styled.div`
   display: inline-block;
   width: 16px;

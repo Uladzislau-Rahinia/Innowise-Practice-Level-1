@@ -10,8 +10,7 @@ const StyledInput = styled.input`
   outline: none;
 `;
 
-const TextInput = (props) => {
-  //console.log(props.value)
+function TextInput(props) {
   return (
     <StyledInput
       type={props.type}
@@ -19,8 +18,7 @@ const TextInput = (props) => {
       onChange={props.onChange}
       value={props.value}
       isError={props.isError}
-    ></StyledInput>
+    />
   );
-};
-
+}
 export default TextInput;

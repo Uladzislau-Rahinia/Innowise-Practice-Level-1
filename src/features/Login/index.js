@@ -1,10 +1,10 @@
 import { React, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import styled from "styled-components";
+import { toast, ToastContainer } from "react-toastify";
 import TextInput from "../../components/textInput";
 import Button from "../../components/Button";
 import { auth } from "../../api/firebase";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginWrapper = styled.div`
@@ -50,10 +50,8 @@ const LoginPage = () => {
 
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        console.log(userCredential.user);
+      .then(() => {
         setRedirect(true);
-        // ...
       })
       .catch((error) => {
         switch (error.code) {
@@ -81,17 +79,12 @@ const LoginPage = () => {
               autoClose: 3500,
             });
         }
-
-        console.log(error.code);
-        console.log(error.message);
-        // ..
       });
   };
 
-  console.log(isRedirect);
   return (
     <LoginWrapper>
-      {isRedirect ? <Redirect to={`/home`} /> : ""}
+      {isRedirect ? <Redirect to="/home" /> : ""}
       <span>Todo-List</span>
       <LoginContainer>
         <span>Please Login</span>

@@ -59,13 +59,11 @@ const StyledLink = styled(Link)`
 `;
 
 const TaskList = (props) => {
-  console.log("TASK LIST", props.tasks);
   return (
     <TaskListContainer>
       <span>Tasks for this day</span>
-      {!!props.tasks.length ? (
+      {props.tasks.length ? (
         props.tasks.map((value, index) => {
-          console.log(value[1].status);
           return (
             <Task key={index}>
               <Checkbox
@@ -73,12 +71,6 @@ const TaskList = (props) => {
                 onChange={props.handleUpdateStatus}
                 value={value[0]}
               />
-              {/* <input
-                type="checkbox"
-                checked={value[1].status}
-                onChange={props.handleUpdateStatus}
-                value={value[0]}
-              /> */}
               <StyledLink
                 to={{
                   pathname: "/create-task",
@@ -98,7 +90,7 @@ const TaskList = (props) => {
         })
       ) : (
         <span className="placeholder">
-          You don't have any tasks for this day
+          You dont have any tasks for this day
         </span>
       )}
     </TaskListContainer>

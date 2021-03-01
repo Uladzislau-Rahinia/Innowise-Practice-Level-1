@@ -18,8 +18,8 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const ButtonLink = (props) => {
-  return <StyledLink to={props.to}>{props.text}</StyledLink>;
-};
+const ButtonLink = (props) => (
+  <StyledLink to={props.to}>{props.text}</StyledLink>
+);
 
 export default ButtonLink;

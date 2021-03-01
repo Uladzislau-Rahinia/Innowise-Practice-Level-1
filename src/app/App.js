@@ -13,17 +13,17 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Redirect from={"/"} to={`/home`} exact />
-        <Route path={`/home`}>
+        <Redirect from="/" to="/home" exact />
+        <Route path="/home">
           <HomePage />
         </Route>
-        <Route path={`/login`}>
+        <Route path="/login">
           <LoginPage />
         </Route>
-        <Route path={`/register`}>
+        <Route path="/register">
           <RegisterPage />
         </Route>
-        <Route path={`/create-task`} component={CreateTaskPage}></Route>
+        <Route path="/create-task" component={CreateTaskPage} />
       </Switch>
     </Router>
   );

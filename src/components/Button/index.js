@@ -11,14 +11,13 @@ const StyledButton = styled.button`
   color: white;
   outline: none;
   cursor: pointer;
+  font-size: 14px;
 `;
 
-const Button = (props) => {
-  return (
-    <StyledButton isDanger={props.isDanger} onClick={props.onClick}>
-      {props.text}
-    </StyledButton>
-  );
-};
+const Button = (props) => (
+  <StyledButton isDanger={props.isDanger} onClick={props.onClick}>
+    {props.text}
+  </StyledButton>
+);
 
 export default Button;

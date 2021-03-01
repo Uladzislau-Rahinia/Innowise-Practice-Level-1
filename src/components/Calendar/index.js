@@ -1,9 +1,9 @@
 import { React, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { format } from "date-fns";
 import dayConfig from "./dayConfig";
 import monthConfig from "./monthConfig";
 import Carousel from "../Carousel";
-import { format } from "date-fns";
 
 const CalendarContainer = styled.div`
   max-width: 768px;
@@ -73,24 +73,26 @@ const Markers = styled.div`
 `;
 
 const Calendar = (props) => {
-  let calendarItems = [];
+  const calendarItems = [];
   const calendarRef = useRef();
   const [blockWidth, setBlockWidth] = useState(768);
   const [maxElementsShown, setMaxElementsShown] = useState(30);
+
   useEffect(() => {
     setBlockWidth(calendarRef.current.offsetWidth);
   }, []);
-  let show = Math.round(blockWidth / 100);
-  console.log("SHOW", show);
-  let date = new Date(Date.now());
-  console.log(props.chosenDay);
+
+  const show = Math.round(blockWidth / 100);
+  const date = new Date(Date.now());
   let isChosen = false;
+
   for (let i = 0; i < maxElementsShown; i++) {
     let hasFinished = false;
     let hasUnfinished = false;
 
     if (format(date, "yyyy-MM-dd") === props.chosenDay) isChosen = true;
     else isChosen = false;
+
     if (props.userData[format(date, "yyyy-MM-dd")]) {
       Object.entries(props.userData[format(date, "yyyy-MM-dd")]).find(
         (value) => {
@@ -99,6 +101,7 @@ const Calendar = (props) => {
         }
       );
     }
+
     calendarItems.push(
       <CalendarItem
         onClick={props.handleChoosingDay}
@@ -111,13 +114,15 @@ const Calendar = (props) => {
           <div className="date">{date.getDate()}</div>
         </div>
         <Markers hasFinished={hasFinished} hasUnfinished={hasUnfinished}>
-          <div className="unfinished"></div>
-          <div className="finished"></div>
+          <div className="unfinished" />
+          <div className="finished" />
         </Markers>
       </CalendarItem>
     );
+
     date.setDate(date.getDate() + 1);
   }
+
   return (
     <CalendarContainer ref={calendarRef}>
       <span>Calendar</span>

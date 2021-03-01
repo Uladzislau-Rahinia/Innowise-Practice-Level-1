@@ -1,10 +1,10 @@
 import { React, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import styled from "styled-components";
+import { toast, ToastContainer } from "react-toastify";
 import TextInput from "../../components/textInput";
 import Button from "../../components/Button";
 import { database, auth } from "../../api/firebase";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const RegisterWrapper = styled.div`
@@ -47,7 +47,8 @@ const RegisterPage = () => {
         autoClose: 3500,
       });
       return;
-    } else if (password !== passwordComfirm) {
+    }
+    if (password !== passwordComfirm) {
       toast.error("Passwords should match", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3500,
@@ -57,16 +58,12 @@ const RegisterPage = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        let tasksRef = database.ref(`tasks/`);
-        let newUser = {};
+        const tasksRef = database.ref(`tasks/`);
+        const newUser = {};
         newUser[`${userCredential.user.uid}`] = "";
-        console.log(newUser);
         tasksRef.update(newUser).then(() => {
           setRedirect(true);
         });
-
-        console.log(userCredential.user);
-        // ...
       })
       .catch((error) => {
         switch (error.code) {
@@ -91,15 +88,12 @@ const RegisterPage = () => {
               autoClose: 3500,
             });
         }
-        console.log(error.code);
-        console.log(error.message);
-        // ..
       });
   };
 
   return (
     <RegisterWrapper>
-      {isRedirect ? <Redirect to={`/home`} /> : ""}
+      {isRedirect ? <Redirect to="/home" /> : ""}
       <span>Todo-List</span>
       <RegisterContainer>
         <span>Please Register</span>

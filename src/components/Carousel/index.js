@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect } from "react";
 import styled from "styled-components";
 
 const CarouselContainer = styled.div`
@@ -65,8 +65,6 @@ const Carousel = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(children.length);
 
-  console.log(show);
-
   useEffect(() => {
     setLength(children.length);
   }, [children]);
@@ -86,7 +84,6 @@ const Carousel = (props) => {
     }
   };
 
-  console.log(currentIndex);
   return (
     <CarouselContainer>
       <CarouselWrapper>
@@ -96,7 +93,7 @@ const Carousel = (props) => {
 
         <CarouselContentWrapper>
           <CarouselContent
-            //style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            // style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             show={props.show}
           >
             {children.map((value, index) => {
