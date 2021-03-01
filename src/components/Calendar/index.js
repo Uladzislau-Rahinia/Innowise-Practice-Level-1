@@ -1,6 +1,7 @@
 import { React, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import dayConfig from "./dayConfig";
+import monthConfig from "./monthConfig";
 import Carousel from "../Carousel";
 import { format } from "date-fns";
 
@@ -37,8 +38,11 @@ const CalendarItem = styled.div`
 
     cursor: pointer;
   }
-  .day {
+  .day, .month {
     color: ${(props) => (props.isChosen ? "orange" : "gray")};
+  }
+  .month {
+    font-size: 13px;
   }
   ${(props) => (props.isChosen ? "color: orange;" : "")}
 `;
@@ -71,6 +75,7 @@ const Calendar = (props) => {
   let calendarItems = [];
   const calendarRef = useRef();
   const [blockWidth, setBlockWidth] = useState(768);
+  const [maxElementsShown, setMaxElementsShown] = useState(30);
   useEffect(() => {
     setBlockWidth(calendarRef.current.offsetWidth);
   }, []);
@@ -79,7 +84,7 @@ const Calendar = (props) => {
   let date = new Date(Date.now());
   console.log(props.chosenDay);
   let isChosen = false;
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < maxElementsShown; i++) {
     let hasFinished = false;
     let hasUnfinished = false;
 
@@ -101,6 +106,7 @@ const Calendar = (props) => {
       >
         <div className="content">
           <div className="day">{dayConfig[date.getDay()]}</div>
+          <div className="month">{monthConfig[date.getMonth()]}</div>
           <div className="date">{date.getDate()}</div>
         </div>
         <Markers hasFinished={hasFinished} hasUnfinished={hasUnfinished}>
@@ -114,7 +120,7 @@ const Calendar = (props) => {
   return (
     <CalendarContainer ref={calendarRef}>
       <span>Calendar</span>
-      <Carousel show={show}>{calendarItems}</Carousel>
+      <Carousel  maxElementsShown={maxElementsShown} setMaxElementsShown={setMaxElementsShown} show={show}>{calendarItems}</Carousel>
     </CalendarContainer>
   );
 };

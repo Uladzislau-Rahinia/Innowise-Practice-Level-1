@@ -61,7 +61,7 @@ const CarouselButtonRight = styled(CarouselButton)`
 `;
 
 const Carousel = (props) => {
-  const { children, show } = props;
+  const { children, show, setMaxElementsShown, maxElementsShown } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(children.length);
 
@@ -74,6 +74,9 @@ const Carousel = (props) => {
   const next = () => {
     if (currentIndex < length - show) {
       setCurrentIndex((prevState) => prevState + show);
+    }
+    if(currentIndex < length - show*2){
+      setMaxElementsShown(maxElementsShown + 30);
     }
   };
 

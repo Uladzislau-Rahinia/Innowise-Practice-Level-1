@@ -143,7 +143,10 @@ const CreateTaskPage = (props) => {
       {isRedirect ? <Redirect to={`/home`} /> : ""}
       <TaskCreatorContainer>
         {isUpdate ? (
+          <>
           <span>Update your task!</span>
+          <span>This task is assigned on {chosenDay}</span>
+          </>
         ) : (
           <>
             <span>Create your task!</span>
