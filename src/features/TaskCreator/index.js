@@ -122,10 +122,7 @@ const CreateTaskPage = (props) => {
         {isUpdate ? (
           <>
             <span>Update your task!</span>
-            <span>
-              This task is assigned on
-              {chosenDay}
-            </span>
+            <span>This task is assigned on {chosenDay}</span>
           </>
         ) : (
           <>
