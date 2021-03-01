@@ -20,11 +20,15 @@
         "sourceType": "module" 
     },
     "plugins": [
-        "react"
+        "react",
+        "prettier"
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off",
-        "no-console": "error"
+        "no-console": "error",
+        "prettier/prettier": ["error", {
+           "endOfLine":"auto"
+         }]
     }
 }
