@@ -144,8 +144,8 @@ const CreateTaskPage = (props) => {
       <TaskCreatorContainer>
         {isUpdate ? (
           <>
-          <span>Update your task!</span>
-          <span>This task is assigned on {chosenDay}</span>
+            <span>Update your task!</span>
+            <span>This task is assigned on {chosenDay}</span>
           </>
         ) : (
           <>

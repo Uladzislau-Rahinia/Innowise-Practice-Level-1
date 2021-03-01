@@ -67,9 +67,10 @@ const HomePage = () => {
   };
 
   const handleUpdateStatus = (e) => {
-    console.log("IS CHECKBOX",e.target, e.currentTarget);
+    console.log("IS CHECKBOX", e.target, e.currentTarget);
     let updatedTasks = userData[chosenDay];
-    updatedTasks[e.currentTarget.id].status =  !updatedTasks[e.currentTarget.id].status;
+    updatedTasks[e.currentTarget.id].status = !updatedTasks[e.currentTarget.id]
+      .status;
     let updatedData = userData;
     updatedData[chosenDay] = updatedTasks;
     setUserData(updatedData);
@@ -100,7 +101,7 @@ const HomePage = () => {
           to={{ pathname: "/create-task", state: { isUpdate: false } }}
           text="+ Add new task"
         />
-        <Button onClick={handleLogOut} text={"logout"} />
+        <Button onClick={handleLogOut} text={"Log Out"} />
       </ButtonWrapper>
     </TodoListWrapper>
   );

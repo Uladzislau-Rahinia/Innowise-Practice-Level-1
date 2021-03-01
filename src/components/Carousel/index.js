@@ -75,7 +75,7 @@ const Carousel = (props) => {
     if (currentIndex < length - show) {
       setCurrentIndex((prevState) => prevState + show);
     }
-    if(currentIndex < length - show*2){
+    if (currentIndex < length - show * 2) {
       setMaxElementsShown(maxElementsShown + 30);
     }
   };

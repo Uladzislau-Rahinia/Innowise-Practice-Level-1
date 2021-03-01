@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Checkbox from "../Checkbox"
+import Checkbox from "../Checkbox";
 
 const TaskListContainer = styled.div`
   max-width: 768px;
@@ -68,10 +68,11 @@ const TaskList = (props) => {
           console.log(value[1].status);
           return (
             <Task key={index}>
-              <Checkbox 
+              <Checkbox
                 checked={value[1].status}
                 onChange={props.handleUpdateStatus}
-                value={value[0]}/>
+                value={value[0]}
+              />
               {/* <input
                 type="checkbox"
                 checked={value[1].status}

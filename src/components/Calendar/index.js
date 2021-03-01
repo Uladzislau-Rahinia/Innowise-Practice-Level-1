@@ -38,7 +38,8 @@ const CalendarItem = styled.div`
 
     cursor: pointer;
   }
-  .day, .month {
+  .day,
+  .month {
     color: ${(props) => (props.isChosen ? "orange" : "gray")};
   }
   .month {
@@ -120,7 +121,13 @@ const Calendar = (props) => {
   return (
     <CalendarContainer ref={calendarRef}>
       <span>Calendar</span>
-      <Carousel  maxElementsShown={maxElementsShown} setMaxElementsShown={setMaxElementsShown} show={show}>{calendarItems}</Carousel>
+      <Carousel
+        maxElementsShown={maxElementsShown}
+        setMaxElementsShown={setMaxElementsShown}
+        show={show}
+      >
+        {calendarItems}
+      </Carousel>
     </CalendarContainer>
   );
 };
