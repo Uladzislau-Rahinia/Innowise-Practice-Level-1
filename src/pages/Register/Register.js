@@ -1,9 +1,9 @@
 import { React, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import TextInput from "src/components/textInput";
-import Button from "src/components/Button";
-import { database, auth } from "src/api/firebase";
+import TextInput from "components/textInput";
+import Button from "components/Button";
+import { database, auth } from "api/firebase";
 import { RegisterWrapper, RegisterContainer } from "./styles";
 import "react-toastify/dist/ReactToastify.css";
 

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { format } from "date-fns";
 import { toast, ToastContainer } from "react-toastify";
-import Button from "src/components/Button";
-import TextInput from "src/components/textInput";
-import Calendar from "src/components/Calendar";
-import { database, auth } from "src/api/firebase";
-import ButtonLink from "src/components/Link";
+import Button from "components/Button";
+import TextInput from "components/textInput";
+import Calendar from "components/Calendar";
+import { database, auth } from "api/firebase";
+import ButtonLink from "components/Link";
 import {
   TaskCreatorContainer,
   TaskCreatorWrapper,

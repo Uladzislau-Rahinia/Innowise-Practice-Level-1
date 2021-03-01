@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Redirect } from "react-router-dom";
 import { format } from "date-fns";
-import TaskList from "src/components/TaskList/TaskList";
-import Calendar from "src/components/Calendar/Calendar";
-import Button from "src/components/Button/Button";
-import { database, auth } from "src/api/firebase";
-import ButtonLink from "src/components/Link/Link";
+import TaskList from "components/TaskList";
+import Calendar from "components/Calendar";
+import Button from "components/Button/Button";
+import { database, auth } from "api/firebase";
+import ButtonLink from "components/Link/";
 import { TodoListWrapper, ButtonWrapper } from "./styles";
 
 const HomePage = () => {

@@ -4,10 +4,10 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import HomePage from "src/pages/HomePage/";
-import LoginPage from "src/pages/Login/";
-import RegisterPage from "src/pages/Register/";
-import CreateTaskPage from "src/pages/TaskCreator/";
+import HomePage from "pages/HomePage";
+import LoginPage from "pages/Login";
+import RegisterPage from "pages/Register";
+import CreateTaskPage from "pages/TaskCreator";
 
 function App() {
   return (
