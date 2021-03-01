@@ -10,6 +10,14 @@ You can find task requirements [here](https://docs.google.com/document/d/1heFuih
 
 This app is hosted on Github Pages. You can use link [here](https://uladzislau-rahinia.github.io/Innowise-Practice-Level-1/)
 
+If you want run this app locally, clone or fork this repository.
+
+To clone use **git clone https://github.com/Uladzislau-Rahinia/Innowise-Practice-Level-1** command.
+
+After clonning you will have to run **npm i** command to get all dependencies.
+
+**For working locally you will need an .env file with firebase api keys. You can contact me or create your own.**
+
 ## Database snapshot
     .
     └──tasks
