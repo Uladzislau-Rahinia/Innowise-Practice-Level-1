@@ -24,6 +24,7 @@ const TaskList = (props) => {
                     taskId: value[0],
                     taskDay: props.day,
                     taskDescription: value[1].description,
+                    userId: props.userId,
                   },
                 }}
               >

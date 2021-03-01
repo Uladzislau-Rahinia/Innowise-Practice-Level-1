@@ -4,9 +4,14 @@ import { format } from "date-fns";
 import TaskList from "components/TaskList";
 import Calendar from "components/Calendar";
 import Button from "components/Button/Button";
-import { database, auth } from "api/firebase";
 import ButtonLink from "components/Link/";
 import { TodoListWrapper, ButtonWrapper } from "./styles";
+import { UpdateUserData, GetUserData } from "services/firebaseDBQueries";
+import {
+  GetUserId,
+  IsLoggedIn,
+  LogoutUser,
+} from "services/firebaseAuthQueries";
 
 const HomePage = () => {
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);
@@ -16,27 +21,23 @@ const HomePage = () => {
     format(new Date(Date.now()), "yyyy-MM-dd")
   );
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        const userTasksRef = database.ref(`tasks/${user.uid}`);
-        userTasksRef.get().then((snapshot) => {
-          if (snapshot.exists()) {
-            const data = snapshot.val();
-            setUserData(data);
-          }
-        });
-        setUserLoggedIn(true);
-      } else {
-        setUserLoggedIn(false);
+  useEffect(async () => {
+    if (IsLoggedIn()) {
+      let queryResult = await GetUserData(`tasks/${GetUserId()}`);
+      if (queryResult) {
+        setUserData(queryResult);
       }
-    });
+      setUserLoggedIn(true);
+    } else {
+      setUserLoggedIn(false);
+    }
   }, []);
 
-  const handleLogOut = () => {
-    auth.signOut().then(() => {
+  const handleLogOut = async () => {
+    let queryResult = await LogoutUser();
+    if (queryResult) {
       setUserLoggedIn(false);
-    });
+    }
   };
 
   const handleUpdateStatus = (e) => {
@@ -47,8 +48,8 @@ const HomePage = () => {
     updatedData[chosenDay] = updatedTasks;
     setUserData(updatedData);
     const updates = {};
-    updates[`/tasks/${auth.currentUser.uid}/${chosenDay}`] = updatedTasks;
-    database.ref().update(updates);
+    updates[`/tasks/${GetUserId()}/${chosenDay}`] = updatedTasks;
+    UpdateUserData(updatedTasks, `/tasks/${GetUserId()}/${chosenDay}`);
     forceUpdate();
   };
 

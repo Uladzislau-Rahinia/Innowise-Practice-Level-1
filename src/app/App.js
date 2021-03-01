@@ -8,22 +8,23 @@ import HomePage from "pages/HomePage";
 import LoginPage from "pages/Login";
 import RegisterPage from "pages/Register";
 import CreateTaskPage from "pages/TaskCreator";
+import { LINKS } from "utils/constants";
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Redirect from="/" to="/home" exact />
-        <Route path="/home">
+        <Redirect from={LINKS.ROOT} to={LINKS.HOME} exact />
+        <Route path={LINKS.HOME}>
           <HomePage />
         </Route>
-        <Route path="/login">
+        <Route path={LINKS.LOGIN}>
           <LoginPage />
         </Route>
-        <Route path="/register">
+        <Route path={LINKS.REGISTER}>
           <RegisterPage />
         </Route>
-        <Route path="/create-task" component={CreateTaskPage} />
+        <Route path={LINKS.TASK} component={CreateTaskPage} />
       </Switch>
     </Router>
   );

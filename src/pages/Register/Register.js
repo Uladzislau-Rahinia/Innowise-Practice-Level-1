@@ -1,11 +1,11 @@
 import { React, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 import TextInput from "components/textInput";
 import Button from "components/Button";
-import { database, auth } from "api/firebase";
 import { RegisterWrapper, RegisterContainer } from "./styles";
-import "react-toastify/dist/ReactToastify.css";
+import ToastContainer, { showErrorToast } from "services/showToast";
+import { RegisterUser } from "services/firebaseAuthQueries";
+import { CreateUserFolder } from "services/firebaseDBQueries";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -13,55 +13,23 @@ const RegisterPage = () => {
   const [passwordComfirm, setPasswordConfirm] = useState("");
   const [isRedirect, setRedirect] = useState(false);
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (email === "" || password === "" || passwordComfirm === "") {
-      toast.error("Fill all fields please", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3500,
-      });
+      showErrorToast("Fill all fields please");
       return;
     }
     if (password !== passwordComfirm) {
-      toast.error("Passwords should match", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3500,
-      });
+      showErrorToast("Passwords should match");
       return;
     }
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const tasksRef = database.ref(`tasks/`);
-        const newUser = {};
-        newUser[`${userCredential.user.uid}`] = "";
-        tasksRef.update(newUser).then(() => {
-          setRedirect(true);
-        });
-      })
-      .catch((error) => {
-        switch (error.code) {
-          case "auth/invalid-email":
-            toast.error("Enter valid email please", {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 3500,
-            });
-            break;
-          case "auth/weak-password":
-            toast.error(
-              "Password is too weak, it should be at least 6 characters",
-              {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 3500,
-              }
-            );
-            break;
-          default:
-            toast.error("Something went wrong :(", {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 3500,
-            });
-        }
-      });
+
+    const registerResult = await RegisterUser(email, password);
+    if (registerResult.isSuccessful) {
+      const queryResult = await CreateUserFolder(registerResult.data);
+      if (queryResult) setRedirect(true);
+    } else {
+      showErrorToast(registerResult.message);
+    }
   };
 
   return (

@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { format } from "date-fns";
-import { toast, ToastContainer } from "react-toastify";
 import Button from "components/Button";
 import TextInput from "components/textInput";
 import Calendar from "components/Calendar";
-import { database, auth } from "api/firebase";
 import ButtonLink from "components/Link";
 import {
   TaskCreatorContainer,
   TaskCreatorWrapper,
   StyledTextArea,
 } from "./styles";
-import "react-toastify/dist/ReactToastify.css";
+import ToastContainer, {
+  showErrorToast,
+  showSuccessToast,
+} from "services/showToast";
+import {
+  UpdateUserData,
+  AddUserData,
+  DeleteUserData,
+} from "services/firebaseDBQueries";
+import { IsLoggedIn } from "services/firebaseAuthQueries";
 
 const CreateTaskPage = (props) => {
   const {
@@ -21,6 +28,7 @@ const CreateTaskPage = (props) => {
     taskId,
     taskDay,
     taskDescription,
+    userId,
   } = props.location.state;
 
   const [chosenDay, setChosenDay] = useState(
@@ -32,55 +40,55 @@ const CreateTaskPage = (props) => {
   const [isRedirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserLoggedIn(true);
-      } else {
-        setUserLoggedIn(false);
-      }
-    });
+    if (IsLoggedIn()) {
+      setUserLoggedIn(true);
+    } else {
+      setUserLoggedIn(false);
+    }
   }, []);
 
-  const handleTaskSave = () => {
+  const handleTaskSave = async () => {
     if (taskName === "") {
-      toast.error("Please enter your task", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3500,
-      });
+      showErrorToast("Please enter your task");
       return;
     }
 
     if (isUpdate) {
-      const userTasksRef = database.ref(
-        `tasks/${auth.currentUser.uid}/${chosenDay}/${taskId}`
-      );
       const updatedTask = {
         text: taskName,
         status: false,
         description,
       };
-      userTasksRef.update(updatedTask).then(() => {
-        toast.success("Task successfully saved", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3500,
-        });
-      });
-    } else {
-      const userTasksRef = database.ref(
-        `tasks/${auth.currentUser.uid}/${chosenDay}`
+
+      let queryResult = UpdateUserData(
+        updatedTask,
+        `tasks/${userId}/${chosenDay}/${taskId}`
       );
+      if (queryResult) {
+        showSuccessToast("Task successfully saved");
+      }
+    } else {
       const newTask = {
         text: taskName,
         status: false,
         description,
       };
-      userTasksRef.push(newTask).then(() => {
+      let queryResult = await AddUserData(
+        newTask,
+        `tasks/${userId}/${chosenDay}`
+      );
+      if (queryResult) {
         setRedirect(true);
-      });
+      }
     }
   };
 
-  const handleTaskDelete = () => {};
+  const handleTaskDelete = async () => {
+    const queryResult = await DeleteUserData(
+      `tasks/${userId}/${chosenDay}/${taskId}`
+    );
+    if (queryResult) setRedirect(true);
+  };
 
   return (
     <TaskCreatorWrapper>
