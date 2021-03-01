@@ -46,3 +46,13 @@ Used to format date in string for better use
 
 Used to deploy app to Github Pages
 
+## Folder structure
+    └──src                  #Main folder for source code
+        ├──api              #Holds api initializing script
+        ├──app              #Holds main component of the app
+        ├──components       #Small components, which don't hold any business logic, can be reused in different features
+        ├──features         #Big components, representing features this app has, they hold buisness logic like fetching data
+        └──index.js         #Entry point of an app, renders main component
+
+
+
