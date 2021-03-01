@@ -18,6 +18,8 @@ After clonning you will have to run **npm i** command to get all dependencies.
 
 **For working locally you will need an .env file with firebase api keys. You can contact me or create your own.**
 
+**If you want to make pull request, do it to master branch, it holds source code**
+
 ## Database snapshot
     .
     └──tasks
