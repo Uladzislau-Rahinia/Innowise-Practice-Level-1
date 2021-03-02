@@ -36,17 +36,18 @@ export const RegisterUser = async (email, password) => {
     });
 };
 
-export const IsLoggedIn = () => {
-  // auth.onAuthStateChanged((user) => {
+export const IsLoggedIn = async (/*statusHandler*/) => {
+  //new Promise((resolve) => auth.onAuthStateChanged((user) => resolve(user)));
+  // return auth.onAuthStateChanged((user) => {
   //   if (user) {
-  //     statusHandler(true);
+  //     return user; //statusHandler(true);
   //   } else statusHandler(false);
   // });
-  if (auth.currentUser) {
-    return true;
-  } else {
-    return false;
-  }
+  // if (auth.currentUser) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
 };
 
 export const LogoutUser = async () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { format } from "date-fns";
 import TaskList from "components/TaskList";
@@ -7,30 +7,29 @@ import Button from "components/Button/Button";
 import ButtonLink from "components/Link/";
 import { TodoListWrapper, ButtonWrapper } from "./styles";
 import { UpdateUserData, GetUserData } from "services/firebaseDBQueries";
-import {
-  GetUserId,
-  IsLoggedIn,
-  LogoutUser,
-} from "services/firebaseAuthQueries";
+import { auth } from "api/firebase";
+import { GetUserId, LogoutUser } from "services/firebaseAuthQueries";
+import userDataReducer from "./reducers/UserDataReducer";
 
 const HomePage = () => {
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [userData, setUserData] = useState({});
+  const [userData, dispatch] = useReducer(userDataReducer, {});
   const [chosenDay, setChosenDay] = useState(
     format(new Date(Date.now()), "yyyy-MM-dd")
   );
 
-  useEffect(async () => {
-    if (IsLoggedIn()) {
-      let queryResult = await GetUserData(`tasks/${GetUserId()}`);
-      if (queryResult) {
-        setUserData(queryResult);
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        let queryResult = await GetUserData(`tasks/${GetUserId()}`);
+        if (queryResult) {
+          dispatch({ type: "set", payload: queryResult });
+        }
+        setUserLoggedIn(true);
+      } else {
+        setUserLoggedIn(false);
       }
-      setUserLoggedIn(true);
-    } else {
-      setUserLoggedIn(false);
-    }
+    });
   }, []);
 
   const handleLogOut = async () => {
@@ -46,11 +45,11 @@ const HomePage = () => {
       .status;
     const updatedData = userData;
     updatedData[chosenDay] = updatedTasks;
-    setUserData(updatedData);
+    dispatch({ type: "update", payload: updatedData });
     const updates = {};
     updates[`/tasks/${GetUserId()}/${chosenDay}`] = updatedTasks;
     UpdateUserData(updatedTasks, `/tasks/${GetUserId()}/${chosenDay}`);
-    forceUpdate();
+    //forceUpdate();
   };
 
   return (

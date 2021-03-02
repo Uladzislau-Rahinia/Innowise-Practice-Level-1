@@ -19,7 +19,7 @@ import {
   AddUserData,
   DeleteUserData,
 } from "services/firebaseDBQueries";
-import { IsLoggedIn } from "services/firebaseAuthQueries";
+import { auth } from "api/firebase";
 
 const CreateTaskPage = (props) => {
   const {
@@ -40,11 +40,13 @@ const CreateTaskPage = (props) => {
   const [isRedirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    if (IsLoggedIn()) {
-      setUserLoggedIn(true);
-    } else {
-      setUserLoggedIn(false);
-    }
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserLoggedIn(true);
+      } else {
+        setUserLoggedIn(false);
+      }
+    });
   }, []);
 
   const handleTaskSave = async () => {
