@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { format } from "date-fns";
 import Button from "components/Button";
 import TextInput from "components/textInput";
@@ -20,6 +20,7 @@ import {
 } from "services/firebaseDBQueries";
 import { auth } from "api/firebase";
 import RedirectWrapper from "services/redirect";
+import { LINKS } from "utils/constants";
 
 const CreateTaskPage = (props) => {
   const {
@@ -94,8 +95,8 @@ const CreateTaskPage = (props) => {
 
   return (
     <TaskCreatorWrapper>
-      <RedirectWrapper isRedirect={!isUserLoggedIn} to="/login" />
-      <RedirectWrapper isRedirect={isRedirect} to="/home" />
+      <RedirectWrapper isRedirect={!isUserLoggedIn} to={LINKS.LOGIN} />
+      <RedirectWrapper isRedirect={isRedirect} to={LINKS.HOME} />
       <TaskCreatorContainer>
         {isUpdate ? (
           <>
@@ -108,20 +109,24 @@ const CreateTaskPage = (props) => {
             <span>Choose a day</span>
             <Calendar
               chosenDay={chosenDay}
-              handleChoosingDay={(e) => setChosenDay(e.currentTarget.id)}
-              userData={{}}
+              handleChoosingDay={useCallback(
+                (e) => setChosenDay(e.currentTarget.id),
+                [chosenDay]
+              )}
             />
           </>
         )}
         <TextInput
           value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
+          onChange={useCallback((e) => setTaskName(e.target.value), [taskName])}
           placeholder="Write your task"
         />
         <StyledTextArea
           placeholder="Write your description"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={useCallback((e) => setDescription(e.target.value), [
+            description,
+          ])}
         />
         <Button
           onClick={handleTaskSave}
@@ -132,7 +137,7 @@ const CreateTaskPage = (props) => {
         ) : (
           ""
         )}
-        <ButtonLink to="/home" text="Go back" />
+        <ButtonLink to={LINKS.HOME} text="Go back" />
       </TaskCreatorContainer>
       <ToastContainer />
     </TaskCreatorWrapper>

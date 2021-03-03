@@ -1,6 +1,7 @@
 import React from "react";
 import Checkbox from "../Checkbox";
 import { TaskListContainer, StyledLink, Task } from "./styles";
+import { LINKS } from "utils/constants";
 
 const TaskList = (props) => {
   return (
@@ -17,7 +18,7 @@ const TaskList = (props) => {
               />
               <StyledLink
                 to={{
-                  pathname: "/create-task",
+                  pathname: LINKS.TASK,
                   state: {
                     isUpdate: true,
                     textName: value[1].text,

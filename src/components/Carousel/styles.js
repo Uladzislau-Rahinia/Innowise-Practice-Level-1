@@ -23,7 +23,7 @@ export const CarouselContentWrapper = styled.div`
 
 export const CarouselContent = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   transition: all 250ms linear;
   width: 100%;
   -ms-overflow-style: none; /* hide scrollbar in IE and Edge */

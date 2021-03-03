@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { format } from "date-fns";
 import TaskList from "components/TaskList";
 import Calendar from "components/Calendar";
@@ -10,6 +10,7 @@ import { auth } from "api/firebase";
 import { GetUserId, LogoutUser } from "services/firebaseAuthQueries";
 import userDataReducer from "./reducers/UserDataReducer";
 import RedirectWrapper from "services/redirect";
+import { LINKS } from "utils/constants";
 
 const HomePage = () => {
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);
@@ -49,17 +50,19 @@ const HomePage = () => {
     const updates = {};
     updates[`/tasks/${GetUserId()}/${chosenDay}`] = updatedTasks;
     UpdateUserData(updatedTasks, `/tasks/${GetUserId()}/${chosenDay}`);
-    //forceUpdate();
   };
 
   return (
     <TodoListWrapper>
-      <RedirectWrapper isRedirect={!isUserLoggedIn} to="/login" />
+      <RedirectWrapper isRedirect={!isUserLoggedIn} to={LINKS.LOGIN} />
       <Calendar
         chosenDay={chosenDay}
-        handleChoosingDay={(e) => {
-          setChosenDay(e.currentTarget.id);
-        }}
+        handleChoosingDay={useCallback(
+          (e) => {
+            setChosenDay(e.currentTarget.id);
+          },
+          [chosenDay]
+        )}
         userData={userData}
       />
       <TaskList
@@ -69,7 +72,7 @@ const HomePage = () => {
       />
       <ButtonWrapper>
         <ButtonLink
-          to={{ pathname: "/create-task", state: { isUpdate: false } }}
+          to={{ pathname: LINKS.TASK, state: { isUpdate: false } }}
           text="+ Add new task"
         />
         <Button onClick={handleLogOut} text="Log Out" />

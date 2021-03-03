@@ -1,10 +1,12 @@
-import { React, useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { React, useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 import TextInput from "components/textInput";
 import Button from "components/Button";
 import { LoginUser } from "services/firebaseAuthQueries";
 import { LoginWrapper, LoginContainer } from "./styles";
 import ToastContainer, { showErrorToast } from "services/showToast";
+import { LINKS } from "utils/constants";
+import RedirectWrapper from "services/redirect";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -27,18 +29,18 @@ const LoginPage = () => {
 
   return (
     <LoginWrapper>
-      {isRedirect ? <Redirect to="/home" /> : ""}
+      <RedirectWrapper isRedirect={isRedirect} to={LINKS.HOME} />
       <span>Todo-List</span>
       <LoginContainer>
         <span>Please Login</span>
         <TextInput
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={useCallback((e) => setEmail(e.target.value), [email])}
           value={email}
           type="text"
           placeholder="E-mail"
         />
         <TextInput
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={useCallback((e) => setPassword(e.target.value), [password])}
           value={password}
           type="password"
           placeholder="Password"

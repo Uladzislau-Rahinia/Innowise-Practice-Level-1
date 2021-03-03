@@ -1,11 +1,13 @@
-import { React, useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { React, useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 import TextInput from "components/textInput";
 import Button from "components/Button";
 import { RegisterWrapper, RegisterContainer } from "./styles";
 import ToastContainer, { showErrorToast } from "services/showToast";
 import { RegisterUser } from "services/firebaseAuthQueries";
 import { CreateUserFolder } from "services/firebaseDBQueries";
+import RedirectWrapper from "services/redirect";
+import { LINKS } from "utils/constants";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -34,24 +36,26 @@ const RegisterPage = () => {
 
   return (
     <RegisterWrapper>
-      {isRedirect ? <Redirect to="/home" /> : ""}
+      <RedirectWrapper isRedirect={isRedirect} to={LINKS.HOME} />
       <span>Todo-List</span>
       <RegisterContainer>
         <span>Please Register</span>
         <TextInput
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={useCallback((e) => setEmail(e.target.value), [email])}
           value={email}
           type="text"
           placeholder="E-mail"
         />
         <TextInput
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={useCallback((e) => setPassword(e.target.value), [password])}
           value={password}
           type="password"
           placeholder="Password"
         />
         <TextInput
-          onChange={(e) => setPasswordConfirm(e.target.value)}
+          onChange={useCallback((e) => setPasswordConfirm(e.target.value), [
+            passwordComfirm,
+          ])}
           value={passwordComfirm}
           type="password"
           placeholder="Comfirm password"
