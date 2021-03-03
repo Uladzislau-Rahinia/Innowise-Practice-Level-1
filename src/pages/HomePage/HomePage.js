@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { Redirect } from "react-router-dom";
 import { format } from "date-fns";
 import TaskList from "components/TaskList";
 import Calendar from "components/Calendar";
@@ -10,6 +9,7 @@ import { UpdateUserData, GetUserData } from "services/firebaseDBQueries";
 import { auth } from "api/firebase";
 import { GetUserId, LogoutUser } from "services/firebaseAuthQueries";
 import userDataReducer from "./reducers/UserDataReducer";
+import RedirectWrapper from "services/redirect";
 
 const HomePage = () => {
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);
@@ -54,7 +54,7 @@ const HomePage = () => {
 
   return (
     <TodoListWrapper>
-      {isUserLoggedIn ? "" : <Redirect to="/login" />}
+      <RedirectWrapper isRedirect={!isUserLoggedIn} to="/login" />
       <Calendar
         chosenDay={chosenDay}
         handleChoosingDay={(e) => {

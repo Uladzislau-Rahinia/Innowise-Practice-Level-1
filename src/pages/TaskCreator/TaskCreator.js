@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import { format } from "date-fns";
 import Button from "components/Button";
 import TextInput from "components/textInput";
@@ -20,6 +19,7 @@ import {
   DeleteUserData,
 } from "services/firebaseDBQueries";
 import { auth } from "api/firebase";
+import RedirectWrapper from "services/redirect";
 
 const CreateTaskPage = (props) => {
   const {
@@ -94,8 +94,8 @@ const CreateTaskPage = (props) => {
 
   return (
     <TaskCreatorWrapper>
-      {isUserLoggedIn ? "" : <Redirect to="/login" />}
-      {isRedirect ? <Redirect to="/home" /> : ""}
+      <RedirectWrapper isRedirect={!isUserLoggedIn} to="/login" />
+      <RedirectWrapper isRedirect={isRedirect} to="/home" />
       <TaskCreatorContainer>
         {isUpdate ? (
           <>
