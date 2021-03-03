@@ -11,5 +11,5 @@ export const ButtonWrapper = styled.div`
   max-width: 768px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;

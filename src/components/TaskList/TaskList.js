@@ -29,7 +29,11 @@ const TaskList = (props) => {
                   },
                 }}
               >
-                <span>{value[1].text}</span>
+                <span>
+                  {value[1].text.length > window.innerWidth / 15
+                    ? value[1].text.substring(0, window.innerWidth / 15) + "..."
+                    : value[1].text}
+                </span>
               </StyledLink>
             </Task>
           );

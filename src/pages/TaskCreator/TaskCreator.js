@@ -118,9 +118,11 @@ const TaskPage = (props) => {
           </>
         )}
         <TextInput
+          type="text"
           value={taskName}
           onChange={useCallback((e) => setTaskName(e.target.value), [taskName])}
-          placeholder="Write your task"
+          placeholder="Write your task (50 symbols max)"
+          maxLength={50}
         />
         <StyledTextArea
           placeholder="Write your description"

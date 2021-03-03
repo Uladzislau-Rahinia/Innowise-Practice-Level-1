@@ -10,6 +10,7 @@ function TextInput(props) {
       onChange={props.onChange}
       value={props.value}
       isError={props.isError}
+      maxLength={props.maxLength}
     />
   );
 }
@@ -20,6 +21,7 @@ TextInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   isError: PropTypes.bool,
+  maxLength: PropTypes.number,
 };
 
 export default TextInput;

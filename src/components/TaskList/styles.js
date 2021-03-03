@@ -8,7 +8,6 @@ export const TaskListContainer = styled.div`
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   & > span {
     align-self: flex-start;
@@ -25,6 +24,7 @@ export const TaskListContainer = styled.div`
 `;
 
 export const Task = styled.div`
+  margin-left: 50px;
   width: 80%;
   height: 30px;
    solid blue;
@@ -34,7 +34,7 @@ export const Task = styled.div`
   align-items: center;
 
   & > * {
-    margin-left: 20px;
+    margin-right: 20px;
     height: 20px;
   }
   img {
@@ -51,7 +51,5 @@ export const Task = styled.div`
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  :visited {
-    color: black;
-  }
+  color: black;
 `;
