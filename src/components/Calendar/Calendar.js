@@ -4,6 +4,7 @@ import dayConfig from "./dayConfig";
 import monthConfig from "./monthConfig";
 import Carousel from "../Carousel";
 import { CalendarContainer, CalendarItem, Markers } from "./styles";
+import PropTypes from "prop-types";
 
 const Calendar = (props) => {
   const calendarRef = useRef();
@@ -80,6 +81,12 @@ const Calendar = (props) => {
       </Carousel>
     </CalendarContainer>
   );
+};
+
+Calendar.propTypes = {
+  chosenDay: PropTypes.string.isRequired,
+  handleChoosingDay: PropTypes.func.isRequired,
+  userData: PropTypes.object,
 };
 
 export default Calendar;

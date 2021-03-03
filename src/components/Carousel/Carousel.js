@@ -7,6 +7,7 @@ import {
   CarouselButtonLeft,
   CarouselButtonRight,
 } from "./styles";
+import PropTypes from "prop-types";
 
 const Carousel = (props) => {
   const { children, show, setMaxElementsShown, maxElementsShown } = props;
@@ -57,6 +58,13 @@ const Carousel = (props) => {
       </CarouselWrapper>
     </CarouselContainer>
   );
+};
+
+Carousel.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  show: PropTypes.number.isRequired,
+  maxElementsShown: PropTypes.number.isRequired,
+  setMaxElementsShown: PropTypes.func.isRequired,
 };
 
 export default Carousel;

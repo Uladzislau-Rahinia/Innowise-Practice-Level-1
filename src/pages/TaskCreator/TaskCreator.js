@@ -18,18 +18,19 @@ import {
   AddUserData,
   DeleteUserData,
 } from "services/firebaseDBQueries";
+import { GetUserId } from "services/firebaseAuthQueries";
 import { auth } from "api/firebase";
 import RedirectWrapper from "services/redirect";
 import { LINKS } from "utils/constants";
+import PropTypes from "prop-types";
 
-const CreateTaskPage = (props) => {
+const TaskPage = (props) => {
   const {
     isUpdate,
     textName,
     taskId,
     taskDay,
     taskDescription,
-    userId,
   } = props.location.state;
 
   const [chosenDay, setChosenDay] = useState(
@@ -65,7 +66,7 @@ const CreateTaskPage = (props) => {
 
       let queryResult = UpdateUserData(
         updatedTask,
-        `tasks/${userId}/${chosenDay}/${taskId}`
+        `tasks/${GetUserId()}/${chosenDay}/${taskId}`
       );
       if (queryResult) {
         showSuccessToast("Task successfully saved");
@@ -78,7 +79,7 @@ const CreateTaskPage = (props) => {
       };
       let queryResult = await AddUserData(
         newTask,
-        `tasks/${userId}/${chosenDay}`
+        `tasks/${GetUserId()}/${chosenDay}`
       );
       if (queryResult) {
         setRedirect(true);
@@ -88,7 +89,7 @@ const CreateTaskPage = (props) => {
 
   const handleTaskDelete = async () => {
     const queryResult = await DeleteUserData(
-      `tasks/${userId}/${chosenDay}/${taskId}`
+      `tasks/${GetUserId()}/${chosenDay}/${taskId}`
     );
     if (queryResult) setRedirect(true);
   };
@@ -144,4 +145,8 @@ const CreateTaskPage = (props) => {
   );
 };
 
-export default CreateTaskPage;
+TaskPage.propTypes = {
+  location: PropTypes.object.isRequired,
+};
+
+export default TaskPage;

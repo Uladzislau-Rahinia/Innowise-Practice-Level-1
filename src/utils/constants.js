@@ -3,5 +3,5 @@ export const LINKS = {
   HOME: "/home",
   LOGIN: "/login",
   REGISTER: "/register",
-  TASK: "/create-task",
+  TASK: "/task",
 };

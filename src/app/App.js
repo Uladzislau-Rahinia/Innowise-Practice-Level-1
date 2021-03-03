@@ -7,7 +7,7 @@ import {
 import HomePage from "pages/HomePage";
 import LoginPage from "pages/Login";
 import RegisterPage from "pages/Register";
-import CreateTaskPage from "pages/TaskCreator";
+import TaskPage from "pages/TaskCreator";
 import { LINKS } from "utils/constants";
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
         <Route path={LINKS.REGISTER}>
           <RegisterPage />
         </Route>
-        <Route path={LINKS.TASK} component={CreateTaskPage} />
+        <Route path={LINKS.TASK} component={TaskPage} />
       </Switch>
     </Router>
   );

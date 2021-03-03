@@ -2,6 +2,7 @@ import React from "react";
 import Checkbox from "../Checkbox";
 import { TaskListContainer, StyledLink, Task } from "./styles";
 import { LINKS } from "utils/constants";
+import PropTypes from "prop-types";
 
 const TaskList = (props) => {
   return (
@@ -25,7 +26,6 @@ const TaskList = (props) => {
                     taskId: value[0],
                     taskDay: props.day,
                     taskDescription: value[1].description,
-                    userId: props.userId,
                   },
                 }}
               >
@@ -41,6 +41,11 @@ const TaskList = (props) => {
       )}
     </TaskListContainer>
   );
+};
+
+TaskList.propTypes = {
+  tasks: PropTypes.array.isRequired,
+  day: PropTypes.string.isRequired,
 };
 
 export default TaskList;

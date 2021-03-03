@@ -1,5 +1,6 @@
 import React from "react";
 import { StyledInput } from "./styles";
+import PropTypes from "prop-types";
 
 function TextInput(props) {
   return (
@@ -12,4 +13,13 @@ function TextInput(props) {
     />
   );
 }
+
+TextInput.propTypes = {
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  isError: PropTypes.bool,
+};
+
 export default TextInput;
