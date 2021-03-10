@@ -5,38 +5,38 @@ import Calendar from "core/components/Calendar";
 import Button from "core/components/Button/Button";
 import ButtonLink from "core/components/Link";
 import { TodoListWrapper, ButtonWrapper } from "./styles";
-import { UpdateUserData, GetUserData } from "core/services/firebaseDBQueries";
+import { updateUserData, getUserData } from "core/services/firebaseDBQueries";
 import { auth } from "core/api/firebase";
-import { GetUserId, LogoutUser } from "core/services/firebaseAuthQueries";
+import { getUserId, logoutUser } from "core/services/firebaseAuthQueries";
 import userDataReducer from "./reducers/UserDataReducer";
-import RedirectWrapper from "core/services/redirect";
 import { LINKS } from "core/utils/constants";
+import { useHistory } from "react-router";
 
 const HomePage = () => {
-  const [isUserLoggedIn, setUserLoggedIn] = useState(true);
   const [userData, dispatch] = useReducer(userDataReducer, {});
   const [chosenDay, setChosenDay] = useState(
     format(new Date(Date.now()), "yyyy-MM-dd")
   );
 
+  const history = useHistory();
+
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        let queryResult = await GetUserData(`tasks/${GetUserId()}`);
+        let queryResult = await getUserData(`tasks/${getUserId()}`);
         if (queryResult) {
           dispatch({ type: "set", payload: queryResult });
         }
-        setUserLoggedIn(true);
       } else {
-        setUserLoggedIn(false);
+        history.push(LINKS.LOGIN);
       }
     });
   }, []);
 
   const handleLogOut = async () => {
-    let queryResult = await LogoutUser();
+    let queryResult = await logoutUser();
     if (queryResult) {
-      setUserLoggedIn(false);
+      history.push(LINKS.LOGIN);
     }
   };
 
@@ -48,13 +48,12 @@ const HomePage = () => {
     updatedData[chosenDay] = updatedTasks;
     dispatch({ type: "update", payload: updatedData });
     const updates = {};
-    updates[`/tasks/${GetUserId()}/${chosenDay}`] = updatedTasks;
-    UpdateUserData(updatedTasks, `/tasks/${GetUserId()}/${chosenDay}`);
+    updates[`/tasks/${getUserId()}/${chosenDay}`] = updatedTasks;
+    updateUserData(updatedTasks, `/tasks/${getUserId()}/${chosenDay}`);
   };
 
   return (
     <TodoListWrapper>
-      <RedirectWrapper isRedirect={!isUserLoggedIn} to={LINKS.LOGIN} />
       <Calendar
         chosenDay={chosenDay}
         handleChoosingDay={useCallback(

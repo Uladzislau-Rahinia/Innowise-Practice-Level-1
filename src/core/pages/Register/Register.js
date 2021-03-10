@@ -1,19 +1,19 @@
 import { React, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TextInput from "core/components/textInput";
 import Button from "core/components/Button";
 import { RegisterWrapper, RegisterContainer } from "./styles";
 import ToastContainer, { showErrorToast } from "core/services/showToast";
-import { RegisterUser } from "core/services/firebaseAuthQueries";
-import { CreateUserFolder } from "core/services/firebaseDBQueries";
-import RedirectWrapper from "core/services/redirect";
+import { registerUser } from "core/services/firebaseAuthQueries";
+import { createUserFolder } from "core/services/firebaseDBQueries";
 import { LINKS } from "core/utils/constants";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordComfirm, setPasswordConfirm] = useState("");
-  const [isRedirect, setRedirect] = useState(false);
+
+  const history = useHistory();
 
   const handleSignUp = async () => {
     if (email === "" || password === "" || passwordComfirm === "") {
@@ -25,10 +25,10 @@ const RegisterPage = () => {
       return;
     }
 
-    const registerResult = await RegisterUser(email, password);
+    const registerResult = await registerUser(email, password);
     if (registerResult.isSuccessful) {
-      const queryResult = await CreateUserFolder(registerResult.data);
-      if (queryResult) setRedirect(true);
+      const queryResult = await createUserFolder(registerResult.data);
+      if (queryResult) history.push(LINKS.HOME);
     } else {
       showErrorToast(registerResult.message);
     }
@@ -36,7 +36,6 @@ const RegisterPage = () => {
 
   return (
     <RegisterWrapper>
-      <RedirectWrapper isRedirect={isRedirect} to={LINKS.HOME} />
       <span>Todo-List</span>
       <RegisterContainer>
         <span>Please Register</span>

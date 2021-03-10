@@ -1,6 +1,6 @@
 import { database } from "core/api/firebase";
 
-export const CreateUserFolder = async (uid) => {
+export const createUserFolder = async (uid) => {
   const tasksRef = database.ref(`tasks/`);
   const newUser = {};
   newUser[`${uid}`] = "";
@@ -9,7 +9,7 @@ export const CreateUserFolder = async (uid) => {
   });
 };
 
-export const GetUserData = async (route) => {
+export const getUserData = async (route) => {
   const userTasksRef = database.ref(route);
   return userTasksRef.get().then((snapshot) => {
     if (snapshot.exists()) {
@@ -18,7 +18,7 @@ export const GetUserData = async (route) => {
   });
 };
 
-export const UpdateUserData = async (updatedData, route) => {
+export const updateUserData = async (updatedData, route) => {
   const updates = {};
   updates[route] = updatedData;
   return database
@@ -29,14 +29,14 @@ export const UpdateUserData = async (updatedData, route) => {
     });
 };
 
-export const AddUserData = async (newData, route) => {
+export const addUserData = async (newData, route) => {
   const userTasksRef = database.ref(route);
   return userTasksRef.push(newData).then(() => {
     return true;
   });
 };
 
-export const DeleteUserData = async (route) => {
+export const deleteUserData = async (route) => {
   const userTasksRef = database.ref(route);
   return userTasksRef.remove().then(() => {
     return true;

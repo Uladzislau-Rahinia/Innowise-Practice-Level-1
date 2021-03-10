@@ -1,7 +1,7 @@
 import { auth } from "core/api/firebase";
 import { ERROR_MESSAGES } from "core/utils/errors";
 
-export const LoginUser = async (email, password) => {
+export const loginUser = async (email, password) => {
   let result = {};
   return auth
     .signInWithEmailAndPassword(email, password)
@@ -18,7 +18,7 @@ export const LoginUser = async (email, password) => {
     });
 };
 
-export const RegisterUser = async (email, password) => {
+export const registerUser = async (email, password) => {
   let result = {};
   return auth
     .createUserWithEmailAndPassword(email, password)
@@ -36,7 +36,7 @@ export const RegisterUser = async (email, password) => {
     });
 };
 
-export const IsLoggedIn = async (/*statusHandler*/) => {
+export const isLoggedIn = async (/*statusHandler*/) => {
   //new Promise((resolve) => auth.onAuthStateChanged((user) => resolve(user)));
   // return auth.onAuthStateChanged((user) => {
   //   if (user) {
@@ -50,12 +50,12 @@ export const IsLoggedIn = async (/*statusHandler*/) => {
   // }
 };
 
-export const LogoutUser = async () => {
+export const logoutUser = async () => {
   return auth.signOut().then(() => {
     return true;
   });
 };
 
-export const GetUserId = () => {
+export const getUserId = () => {
   return auth.currentUser.uid;
 };

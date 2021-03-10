@@ -14,15 +14,15 @@ import ToastContainer, {
   showSuccessToast,
 } from "core/services/showToast";
 import {
-  UpdateUserData,
-  AddUserData,
-  DeleteUserData,
+  updateUserData,
+  addUserData,
+  deleteUserData,
 } from "core/services/firebaseDBQueries";
-import { GetUserId } from "core/services/firebaseAuthQueries";
+import { getUserId } from "core/services/firebaseAuthQueries";
 import { auth } from "core/api/firebase";
-import RedirectWrapper from "core/services/redirect";
 import { LINKS } from "core/utils/constants";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router";
 
 const TaskPage = (props) => {
   const {
@@ -38,15 +38,13 @@ const TaskPage = (props) => {
   );
   const [taskName, setTaskName] = useState(textName || "");
   const [description, setDescription] = useState(taskDescription || "");
-  const [isUserLoggedIn, setUserLoggedIn] = useState(true);
-  const [isRedirect, setRedirect] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserLoggedIn(true);
-      } else {
-        setUserLoggedIn(false);
+      if (!user) {
+        history.push(LINKS.LOGIN);
       }
     });
   }, []);
@@ -64,9 +62,9 @@ const TaskPage = (props) => {
         description,
       };
 
-      let queryResult = UpdateUserData(
+      let queryResult = updateUserData(
         updatedTask,
-        `tasks/${GetUserId()}/${chosenDay}/${taskId}`
+        `tasks/${getUserId()}/${chosenDay}/${taskId}`
       );
       if (queryResult) {
         showSuccessToast("Task successfully saved");
@@ -77,27 +75,25 @@ const TaskPage = (props) => {
         status: false,
         description,
       };
-      let queryResult = await AddUserData(
+      let queryResult = await addUserData(
         newTask,
-        `tasks/${GetUserId()}/${chosenDay}`
+        `tasks/${getUserId()}/${chosenDay}`
       );
       if (queryResult) {
-        setRedirect(true);
+        history.push(LINKS.HOME);
       }
     }
   };
 
   const handleTaskDelete = async () => {
-    const queryResult = await DeleteUserData(
-      `tasks/${GetUserId()}/${chosenDay}/${taskId}`
+    const queryResult = await deleteUserData(
+      `tasks/${getUserId()}/${chosenDay}/${taskId}`
     );
-    if (queryResult) setRedirect(true);
+    if (queryResult) history.push(LINKS.HOME);
   };
 
   return (
     <TaskCreatorWrapper>
-      <RedirectWrapper isRedirect={!isUserLoggedIn} to={LINKS.LOGIN} />
-      <RedirectWrapper isRedirect={isRedirect} to={LINKS.HOME} />
       <TaskCreatorContainer>
         {isUpdate ? (
           <>

@@ -1,17 +1,17 @@
 import { React, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TextInput from "core/components/textInput";
 import Button from "core/components/Button";
-import { LoginUser } from "core/services/firebaseAuthQueries";
+import { loginUser } from "core/services/firebaseAuthQueries";
 import { LoginWrapper, LoginContainer } from "./styles";
 import ToastContainer, { showErrorToast } from "core/services/showToast";
 import { LINKS } from "core/utils/constants";
-import RedirectWrapper from "core/services/redirect";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isRedirect, setRedirect] = useState(false);
+
+  const history = useHistory();
 
   const handleLogin = async () => {
     if (email === "" || password === "") {
@@ -19,9 +19,9 @@ const LoginPage = () => {
       return;
     }
 
-    const loginResult = await LoginUser(email, password);
+    const loginResult = await loginUser(email, password);
     if (loginResult.isSuccessful) {
-      setRedirect(true);
+      history.push(LINKS.HOME);
     } else {
       showErrorToast(loginResult.message);
     }
@@ -29,7 +29,6 @@ const LoginPage = () => {
 
   return (
     <LoginWrapper>
-      <RedirectWrapper isRedirect={isRedirect} to={LINKS.HOME} />
       <span>Todo-List</span>
       <LoginContainer>
         <span>Please Login</span>
