@@ -1,6 +1,6 @@
-import React from "react";
-import { CheckboxContainer, StyledCheckbox, Icon } from "./styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { CheckboxContainer, StyledCheckbox, Icon } from './styles';
 
 const Checkbox = ({ checked, onChange, value }) => (
   <CheckboxContainer>
@@ -15,7 +15,7 @@ const Checkbox = ({ checked, onChange, value }) => (
 Checkbox.propTypes = {
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.any,
+  value: PropTypes.string.isRequired,
 };
 
 export default Checkbox;

@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const StyledButton = styled.button`
+const StyledButton = styled.button`
   max-width: 280px;
   width: 40%;
   height: 30px;
-  background-color: ${(props) => (props.isDanger ? "red" : "orange")};
+  background-color: ${(props) => (props.isDanger ? 'red' : 'orange')};
   border: 0;
   border-radius: 10px;
   color: white;
@@ -12,3 +12,5 @@ export const StyledButton = styled.button`
   cursor: pointer;
   font-size: 14px;
 `;
+
+export default StyledButton;

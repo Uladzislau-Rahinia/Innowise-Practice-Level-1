@@ -1,43 +1,44 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { format } from "date-fns";
-import Button from "core/components/Button";
-import TextInput from "core/components/textInput";
-import Calendar from "core/components/Calendar";
-import ButtonLink from "core/components/Link";
-import {
-  TaskCreatorContainer,
-  TaskCreatorWrapper,
-  StyledTextArea,
-} from "./styles";
+import React, { useState, useEffect } from 'react';
+import { format } from 'date-fns';
+import Button from 'core/components/Button';
+import TextInput from 'core/components/textInput';
+import Calendar from 'core/components/Calendar';
+import ButtonLink from 'core/components/Link';
 import ToastContainer, {
   showErrorToast,
   showSuccessToast,
-} from "core/services/showToast";
+} from 'core/services/showToast';
 import {
   updateUserData,
   addUserData,
   deleteUserData,
-} from "core/services/firebaseDBQueries";
-import { getUserId } from "core/services/firebaseAuthQueries";
-import { auth } from "core/api/firebase";
-import { LINKS } from "core/utils/constants";
-import PropTypes from "prop-types";
-import { useHistory } from "react-router";
+} from 'core/services/firebaseDBQueries';
+import { getUserId } from 'core/services/firebaseAuthQueries';
+import { auth } from 'core/api/firebase';
+import LINKS from 'core/utils/constants';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router';
+import {
+  TaskCreatorContainer,
+  TaskCreatorWrapper,
+  StyledTextArea,
+} from './styles';
 
 const TaskPage = (props) => {
+  const { location } = props;
   const {
     isUpdate,
     textName,
     taskId,
     taskDay,
     taskDescription,
-  } = props.location.state;
+  } = location.state;
 
   const [chosenDay, setChosenDay] = useState(
-    taskDay || format(new Date(Date.now()), "yyyy-MM-dd")
+    taskDay || format(new Date(Date.now()), 'yyyy-MM-dd'),
   );
-  const [taskName, setTaskName] = useState(textName || "");
-  const [description, setDescription] = useState(taskDescription || "");
+  const [taskName, setTaskName] = useState(textName || '');
+  const [description, setDescription] = useState(taskDescription || '');
 
   const history = useHistory();
 
@@ -50,8 +51,8 @@ const TaskPage = (props) => {
   }, []);
 
   const handleTaskSave = async () => {
-    if (taskName === "") {
-      showErrorToast("Please enter your task");
+    if (taskName === '') {
+      showErrorToast('Please enter your task');
       return;
     }
 
@@ -62,12 +63,12 @@ const TaskPage = (props) => {
         description,
       };
 
-      let queryResult = updateUserData(
+      const queryResult = updateUserData(
         updatedTask,
-        `tasks/${getUserId()}/${chosenDay}/${taskId}`
+        `tasks/${getUserId()}/${chosenDay}/${taskId}`,
       );
       if (queryResult) {
-        showSuccessToast("Task successfully saved");
+        showSuccessToast('Task successfully saved');
       }
     } else {
       const newTask = {
@@ -75,9 +76,9 @@ const TaskPage = (props) => {
         status: false,
         description,
       };
-      let queryResult = await addUserData(
+      const queryResult = await addUserData(
         newTask,
-        `tasks/${getUserId()}/${chosenDay}`
+        `tasks/${getUserId()}/${chosenDay}`,
       );
       if (queryResult) {
         history.push(LINKS.HOME);
@@ -87,7 +88,7 @@ const TaskPage = (props) => {
 
   const handleTaskDelete = async () => {
     const queryResult = await deleteUserData(
-      `tasks/${getUserId()}/${chosenDay}/${taskId}`
+      `tasks/${getUserId()}/${chosenDay}/${taskId}`,
     );
     if (queryResult) history.push(LINKS.HOME);
   };
@@ -98,7 +99,11 @@ const TaskPage = (props) => {
         {isUpdate ? (
           <>
             <span>Update your task!</span>
-            <span>This task is assigned on {chosenDay}</span>
+            <span>
+              This task is assigned on
+              {' '}
+              {chosenDay}
+            </span>
           </>
         ) : (
           <>
@@ -106,35 +111,32 @@ const TaskPage = (props) => {
             <span>Choose a day</span>
             <Calendar
               chosenDay={chosenDay}
-              handleChoosingDay={useCallback(
-                (e) => setChosenDay(e.currentTarget.id),
-                [chosenDay]
-              )}
+              handleChoosingDay={
+                (e) => setChosenDay(e.currentTarget.id)
+              }
             />
           </>
         )}
         <TextInput
           type="text"
           value={taskName}
-          onChange={useCallback((e) => setTaskName(e.target.value), [taskName])}
+          onChange={(e) => setTaskName(e.target.value)}
           placeholder="Write your task (50 symbols max)"
           maxLength={50}
         />
         <StyledTextArea
           placeholder="Write your description"
           value={description}
-          onChange={useCallback((e) => setDescription(e.target.value), [
-            description,
-          ])}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <Button
           onClick={handleTaskSave}
-          text={isUpdate ? "Update task" : "Create Task"}
+          text={isUpdate ? 'Update task' : 'Create Task'}
         />
         {isUpdate ? (
           <Button onClick={handleTaskDelete} isDanger text="Delete task" />
         ) : (
-          ""
+          ''
         )}
         <ButtonLink to={LINKS.HOME} text="Go back" />
       </TaskCreatorContainer>
@@ -144,7 +146,15 @@ const TaskPage = (props) => {
 };
 
 TaskPage.propTypes = {
-  location: PropTypes.object.isRequired,
+  location: PropTypes.shape({
+    state: {
+      isUpdate: PropTypes.bool.isRequired,
+      textName: PropTypes.string,
+      taskId: PropTypes.string,
+      taskDay: PropTypes.string,
+      taskDescription: PropTypes.string,
+    },
+  }).isRequired,
 };
 
 export default TaskPage;

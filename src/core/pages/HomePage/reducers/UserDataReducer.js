@@ -1,8 +1,8 @@
 const userDataReducer = (state, action) => {
   switch (action.type) {
-    case "set":
+    case 'set':
       return action.payload;
-    case "update":
+    case 'update':
       return { ...action.payload };
     default:
       throw new Error();

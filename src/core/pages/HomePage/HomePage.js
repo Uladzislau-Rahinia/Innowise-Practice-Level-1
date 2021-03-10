@@ -1,21 +1,23 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
-import { format } from "date-fns";
-import TaskList from "core/components/TaskList";
-import Calendar from "core/components/Calendar";
-import Button from "core/components/Button/Button";
-import ButtonLink from "core/components/Link";
-import { TodoListWrapper, ButtonWrapper } from "./styles";
-import { updateUserData, getUserData } from "core/services/firebaseDBQueries";
-import { auth } from "core/api/firebase";
-import { getUserId, logoutUser } from "core/services/firebaseAuthQueries";
-import userDataReducer from "./reducers/UserDataReducer";
-import { LINKS } from "core/utils/constants";
-import { useHistory } from "react-router";
+import React, {
+  useEffect, useReducer, useState,
+} from 'react';
+import { format } from 'date-fns';
+import TaskList from 'core/components/TaskList';
+import Calendar from 'core/components/Calendar';
+import Button from 'core/components/Button/Button';
+import ButtonLink from 'core/components/Link';
+import { updateUserData, getUserData } from 'core/services/firebaseDBQueries';
+import { auth } from 'core/api/firebase';
+import { getUserId, logoutUser } from 'core/services/firebaseAuthQueries';
+import LINKS from 'core/utils/constants';
+import { useHistory } from 'react-router';
+import userDataReducer from './reducers/UserDataReducer';
+import { TodoListWrapper, ButtonWrapper } from './styles';
 
 const HomePage = () => {
   const [userData, dispatch] = useReducer(userDataReducer, {});
   const [chosenDay, setChosenDay] = useState(
-    format(new Date(Date.now()), "yyyy-MM-dd")
+    format(new Date(Date.now()), 'yyyy-MM-dd'),
   );
 
   const history = useHistory();
@@ -23,9 +25,9 @@ const HomePage = () => {
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        let queryResult = await getUserData(`tasks/${getUserId()}`);
+        const queryResult = await getUserData(`tasks/${getUserId()}`);
         if (queryResult) {
-          dispatch({ type: "set", payload: queryResult });
+          dispatch({ type: 'set', payload: queryResult });
         }
       } else {
         history.push(LINKS.LOGIN);
@@ -34,7 +36,7 @@ const HomePage = () => {
   }, []);
 
   const handleLogOut = async () => {
-    let queryResult = await logoutUser();
+    const queryResult = await logoutUser();
     if (queryResult) {
       history.push(LINKS.LOGIN);
     }
@@ -46,7 +48,7 @@ const HomePage = () => {
       .status;
     const updatedData = userData;
     updatedData[chosenDay] = updatedTasks;
-    dispatch({ type: "update", payload: updatedData });
+    dispatch({ type: 'update', payload: updatedData });
     const updates = {};
     updates[`/tasks/${getUserId()}/${chosenDay}`] = updatedTasks;
     updateUserData(updatedTasks, `/tasks/${getUserId()}/${chosenDay}`);
@@ -56,12 +58,11 @@ const HomePage = () => {
     <TodoListWrapper>
       <Calendar
         chosenDay={chosenDay}
-        handleChoosingDay={useCallback(
+        handleChoosingDay={
           (e) => {
             setChosenDay(e.currentTarget.id);
-          },
-          [chosenDay]
-        )}
+          }
+        }
         userData={userData}
       />
       <TaskList

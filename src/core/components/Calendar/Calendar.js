@@ -1,12 +1,16 @@
-import { React, useEffect, useMemo, useRef, useState } from "react";
-import { format } from "date-fns";
-import dayConfig from "./dayConfig";
-import monthConfig from "./monthConfig";
-import Carousel from "../Carousel";
-import { CalendarContainer, CalendarItem, Markers } from "./styles";
-import PropTypes from "prop-types";
+import {
+  React, useEffect, useMemo, useRef, useState,
+} from 'react';
+import { format } from 'date-fns';
+import PropTypes from 'prop-types';
+import dayConfig from './dayConfig';
+import monthConfig from './monthConfig';
+import Carousel from '../Carousel';
+import { CalendarContainer, CalendarItem, Markers } from './styles';
 
 const Calendar = (props) => {
+  const { userData, chosenDay, handleChoosingDay } = props;
+
   const calendarRef = useRef();
   const [blockWidth, setBlockWidth] = useState(768);
   const [maxElementsShown, setMaxElementsShown] = useState(30);
@@ -18,32 +22,38 @@ const Calendar = (props) => {
   const show = Math.round(blockWidth / 100);
 
   const generateCalendarItems = () => {
-    const calendarItems = [];
+    const items = new Array(maxElementsShown);
+    items.fill(undefined);
+
     const date = new Date(Date.now());
 
     let isChosen = false;
 
-    for (let i = 0; i < maxElementsShown; i++) {
+    const calendarItems = items.map((item, index) => {
       let hasFinished = false;
       let hasUnfinished = false;
 
-      if (format(date, "yyyy-MM-dd") === props.chosenDay) isChosen = true;
+      if (index > 0) {
+        date.setDate(date.getDate() + 1);
+      }
+
+      if (format(date, 'yyyy-MM-dd') === chosenDay) isChosen = true;
       else isChosen = false;
 
-      if (props.userData && props.userData[format(date, "yyyy-MM-dd")]) {
-        Object.entries(props.userData[format(date, "yyyy-MM-dd")]).find(
+      if (userData && userData[format(date, 'yyyy-MM-dd')]) {
+        Object.entries(userData[format(date, 'yyyy-MM-dd')]).forEach(
           (value) => {
             if (value[1].status === true) hasFinished = true;
             else if (value[1].status === false) hasUnfinished = true;
-          }
+          },
         );
       }
 
-      calendarItems.push(
+      return (
         <CalendarItem
-          onClick={props.handleChoosingDay}
+          onClick={handleChoosingDay}
           isChosen={isChosen}
-          id={format(date, "yyyy-MM-dd")}
+          id={format(date, 'yyyy-MM-dd')}
         >
           <div className="content">
             <div className="day">{dayConfig[date.getDay()]}</div>
@@ -56,17 +66,15 @@ const Calendar = (props) => {
           </Markers>
         </CalendarItem>
       );
-
-      date.setDate(date.getDate() + 1);
-    }
+    });
 
     return calendarItems;
   };
 
   const calendarItems = useMemo(generateCalendarItems, [
     maxElementsShown,
-    props.chosenDay,
-    props.userData,
+    chosenDay,
+    userData,
   ]);
 
   return (
@@ -86,7 +94,9 @@ const Calendar = (props) => {
 Calendar.propTypes = {
   chosenDay: PropTypes.string.isRequired,
   handleChoosingDay: PropTypes.func.isRequired,
-  userData: PropTypes.object,
+
+  // eslint-disable-next-line react/require-default-props
+  userData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 export default Calendar;

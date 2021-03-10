@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CalendarContainer = styled.div`
 max-width: 768px;
@@ -24,7 +24,7 @@ export const CalendarItem = styled.div`
   margin: 10px;
   .content {
     height: 70px;
-    border: 2px solid ${(props) => (props.isChosen ? "orange" : "lightgray")};
+    border: 2px solid ${(props) => (props.isChosen ? 'orange' : 'lightgray')};
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -35,12 +35,12 @@ export const CalendarItem = styled.div`
   }
   .day,
   .month {
-    color: ${(props) => (props.isChosen ? "orange" : "gray")};
+    color: ${(props) => (props.isChosen ? 'orange' : 'gray')};
   }
   .month {
     font-size: 13px;
   }
-  ${(props) => (props.isChosen ? "color: orange;" : "")}
+  ${(props) => (props.isChosen ? 'color: orange;' : '')}
 `;
 
 export const Markers = styled.div`
@@ -59,10 +59,10 @@ export const Markers = styled.div`
 
   .finished {
     background-color: orange;
-    display: ${(props) => (props.hasFinished ? "block" : "none")};
+    display: ${(props) => (props.hasFinished ? 'block' : 'none')};
   }
 
   .unfinished {
-    display: ${(props) => (props.hasUnfinished ? "block" : "none")};
+    display: ${(props) => (props.hasUnfinished ? 'block' : 'none')};
   }
 `;

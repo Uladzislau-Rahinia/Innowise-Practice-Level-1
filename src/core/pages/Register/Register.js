@@ -1,36 +1,36 @@
-import { React, useCallback, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import TextInput from "core/components/textInput";
-import Button from "core/components/Button";
-import { RegisterWrapper, RegisterContainer } from "./styles";
-import ToastContainer, { showErrorToast } from "core/services/showToast";
-import { registerUser } from "core/services/firebaseAuthQueries";
-import { createUserFolder } from "core/services/firebaseDBQueries";
-import { LINKS } from "core/utils/constants";
+import { React, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import TextInput from 'core/components/textInput';
+import Button from 'core/components/Button';
+import ToastContainer, { showErrorToast } from 'core/services/showToast';
+import { registerUser } from 'core/services/firebaseAuthQueries';
+import { createUserFolder } from 'core/services/firebaseDBQueries';
+import LINKS from 'core/utils/constants';
+import { RegisterWrapper, RegisterContainer } from './styles';
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordComfirm, setPasswordConfirm] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordComfirm, setPasswordConfirm] = useState('');
 
   const history = useHistory();
 
   const handleSignUp = async () => {
-    if (email === "" || password === "" || passwordComfirm === "") {
-      showErrorToast("Fill all fields please");
+    if (email === '' || password === '' || passwordComfirm === '') {
+      showErrorToast('Fill all fields please');
       return;
     }
     if (password !== passwordComfirm) {
-      showErrorToast("Passwords should match");
+      showErrorToast('Passwords should match');
       return;
     }
 
-    const registerResult = await registerUser(email, password);
-    if (registerResult.isSuccessful) {
-      const queryResult = await createUserFolder(registerResult.data);
-      if (queryResult) history.push(LINKS.HOME);
-    } else {
-      showErrorToast(registerResult.message);
+    try {
+      const registerResult = await registerUser(email, password);
+      await createUserFolder(registerResult);
+      history.push(LINKS.HOME);
+    } catch (e) {
+      showErrorToast(e);
     }
   };
 
@@ -40,21 +40,19 @@ const RegisterPage = () => {
       <RegisterContainer>
         <span>Please Register</span>
         <TextInput
-          onChange={useCallback((e) => setEmail(e.target.value), [email])}
+          onChange={(e) => setEmail(e.target.value)}
           value={email}
           type="text"
           placeholder="E-mail"
         />
         <TextInput
-          onChange={useCallback((e) => setPassword(e.target.value), [password])}
+          onChange={(e) => setPassword(e.target.value)}
           value={password}
           type="password"
           placeholder="Password"
         />
         <TextInput
-          onChange={useCallback((e) => setPasswordConfirm(e.target.value), [
-            passwordComfirm,
-          ])}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
           value={passwordComfirm}
           type="password"
           placeholder="Comfirm password"

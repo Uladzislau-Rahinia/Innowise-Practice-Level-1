@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from 'firebase';
 
 const {
   REACT_APP_FIREBASE_API_KEY,
@@ -9,7 +9,7 @@ const {
   REACT_APP_MESSAGING_SENDER_ID,
   REACT_APP_APP_ID,
   REACT_APP_MEASUREMENT_ID,
-} = process.env; // eslint-disable-line no-undef
+} = process.env;
 
 const firebaseConfig = {
   apiKey: REACT_APP_FIREBASE_API_KEY,
@@ -22,10 +22,10 @@ const firebaseConfig = {
   databaseURL: REACT_APP_DATABASE_URL,
 };
 // // Initialize Firebase
-const firebase_app = firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 // firebase.analytics();
-const database = firebase_app.database();
-const auth = firebase_app.auth();
+const database = firebaseApp.database();
+const auth = firebaseApp.auth();
 
 // if (window.location.hostname === "localhost") {
 //   // Point to the RTDB emulator running on localhost.

@@ -3,12 +3,13 @@ import {
   Switch,
   Route,
   Redirect,
-} from "react-router-dom";
-import HomePage from "core/pages/HomePage";
-import LoginPage from "core/pages/Login";
-import RegisterPage from "core/pages/Register";
-import TaskPage from "core/pages/TaskCreator";
-import { LINKS } from "core/utils/constants";
+} from 'react-router-dom';
+import React from 'react';
+import HomePage from 'core/pages/HomePage';
+import LoginPage from 'core/pages/Login';
+import RegisterPage from 'core/pages/Register';
+import TaskPage from 'core/pages/TaskCreator';
+import LINKS from 'core/utils/constants';
 
 function App() {
   return (

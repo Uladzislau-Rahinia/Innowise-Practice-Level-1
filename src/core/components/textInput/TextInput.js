@@ -1,16 +1,20 @@
-import React from "react";
-import { StyledInput } from "./styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import StyledInput from './styles';
 
 function TextInput(props) {
+  const {
+    type, placeholder, onChange, value, isError, maxLength,
+  } = props;
+
   return (
     <StyledInput
-      type={props.type}
-      placeholder={props.placeholder}
-      onChange={props.onChange}
-      value={props.value}
-      isError={props.isError}
-      maxLength={props.maxLength}
+      type={type}
+      placeholder={placeholder}
+      onChange={onChange}
+      value={value}
+      isError={isError}
+      maxLength={maxLength}
     />
   );
 }
@@ -22,6 +26,12 @@ TextInput.propTypes = {
   value: PropTypes.string.isRequired,
   isError: PropTypes.bool,
   maxLength: PropTypes.number,
+};
+
+TextInput.defaultProps = {
+  placeholder: '',
+  isError: false,
+  maxLength: 1000,
 };
 
 export default TextInput;

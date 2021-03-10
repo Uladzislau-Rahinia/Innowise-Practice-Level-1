@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.7.2",
     "date-fns": "^2.17.0",
     "firebase": "^8.2.9",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
@@ -19,6 +20,8 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
+    "lint" : "npx eslint src/",
+    "prestart": "npm run lint",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -46,9 +49,12 @@
   },
   "devDependencies": {
     "eslint": "^7.21.0",
+    "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.1.0",
     "prettier": "^2.2.1"
   }

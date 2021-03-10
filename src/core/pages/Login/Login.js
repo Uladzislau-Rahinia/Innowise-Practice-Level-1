@@ -1,29 +1,29 @@
-import { React, useCallback, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import TextInput from "core/components/textInput";
-import Button from "core/components/Button";
-import { loginUser } from "core/services/firebaseAuthQueries";
-import { LoginWrapper, LoginContainer } from "./styles";
-import ToastContainer, { showErrorToast } from "core/services/showToast";
-import { LINKS } from "core/utils/constants";
+import { React, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import TextInput from 'core/components/textInput';
+import Button from 'core/components/Button';
+import { loginUser } from 'core/services/firebaseAuthQueries';
+import ToastContainer, { showErrorToast } from 'core/services/showToast';
+import LINKS from 'core/utils/constants';
+import { LoginWrapper, LoginContainer } from './styles';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const history = useHistory();
 
   const handleLogin = async () => {
-    if (email === "" || password === "") {
-      showErrorToast("Fill all fields please");
+    if (email === '' || password === '') {
+      showErrorToast('Fill all fields please');
       return;
     }
 
-    const loginResult = await loginUser(email, password);
-    if (loginResult.isSuccessful) {
+    try {
+      await loginUser(email, password);
       history.push(LINKS.HOME);
-    } else {
-      showErrorToast(loginResult.message);
+    } catch (e) {
+      showErrorToast(e);
     }
   };
 
@@ -33,13 +33,13 @@ const LoginPage = () => {
       <LoginContainer>
         <span>Please Login</span>
         <TextInput
-          onChange={useCallback((e) => setEmail(e.target.value), [email])}
+          onChange={(e) => setEmail(e.target.value)}
           value={email}
           type="text"
           placeholder="E-mail"
         />
         <TextInput
-          onChange={useCallback((e) => setPassword(e.target.value), [password])}
+          onChange={(e) => setPassword(e.target.value)}
           value={password}
           type="password"
           placeholder="Password"

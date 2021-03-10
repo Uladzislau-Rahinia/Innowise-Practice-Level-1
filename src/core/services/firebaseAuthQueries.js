@@ -1,43 +1,30 @@
-import { auth } from "core/api/firebase";
-import { ERROR_MESSAGES } from "core/utils/errors";
+import { auth } from 'core/api/firebase';
+import ERROR_MESSAGES from 'core/utils/errors';
 
-export const loginUser = async (email, password) => {
-  let result = {};
-  return auth
-    .signInWithEmailAndPassword(email, password)
-    .then(() => {
-      result.isSuccessful = true;
-      return result;
-    })
-    .catch((error) => {
-      result.isSuccessful = false;
-      result.message = ERROR_MESSAGES[error.code]
-        ? ERROR_MESSAGES[error.code]
-        : ERROR_MESSAGES.default;
-      return result;
-    });
-};
+export const loginUser = async (email, password) => auth
+  .signInWithEmailAndPassword(email, password)
+  .catch((error) => {
+    const message = ERROR_MESSAGES[error.code]
+      ? ERROR_MESSAGES[error.code]
+      : ERROR_MESSAGES.default;
+    throw message;
+  });
 
-export const registerUser = async (email, password) => {
-  let result = {};
-  return auth
-    .createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      result.isSuccessful = true;
-      result.data = userCredential.user.uid;
-      return result;
-    })
-    .catch((error) => {
-      result.isSuccessful = false;
-      result.message = ERROR_MESSAGES[error.code]
-        ? ERROR_MESSAGES[error.code]
-        : ERROR_MESSAGES.default;
-      return result;
-    });
-};
+export const registerUser = async (email, password) => auth
+  .createUserWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+    const data = userCredential.user.uid;
+    return data;
+  })
+  .catch((error) => {
+    const message = ERROR_MESSAGES[error.code]
+      ? ERROR_MESSAGES[error.code]
+      : ERROR_MESSAGES.default;
+    throw message;
+  });
 
-export const isLoggedIn = async (/*statusHandler*/) => {
-  //new Promise((resolve) => auth.onAuthStateChanged((user) => resolve(user)));
+export const isLoggedIn = async (/* statusHandler */) => {
+  // new Promise((resolve) => auth.onAuthStateChanged((user) => resolve(user)));
   // return auth.onAuthStateChanged((user) => {
   //   if (user) {
   //     return user; //statusHandler(true);
@@ -50,12 +37,6 @@ export const isLoggedIn = async (/*statusHandler*/) => {
   // }
 };
 
-export const logoutUser = async () => {
-  return auth.signOut().then(() => {
-    return true;
-  });
-};
+export const logoutUser = async () => auth.signOut().then(() => true);
 
-export const getUserId = () => {
-  return auth.currentUser.uid;
-};
+export const getUserId = () => auth.currentUser.uid;

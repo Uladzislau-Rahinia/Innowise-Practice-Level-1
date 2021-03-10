@@ -1,14 +1,21 @@
-import React from "react";
-import { StyledLink } from "./styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import StyledLink from './styles';
 
-const ButtonLink = (props) => (
-  <StyledLink to={props.to}>{props.text}</StyledLink>
-);
+const ButtonLink = (props) => {
+  const { to, text } = props;
+  return (
+    <StyledLink to={to}>{text}</StyledLink>
+  );
+};
 
 ButtonLink.propTypes = {
   to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   text: PropTypes.string,
+};
+
+ButtonLink.defaultProps = {
+  text: '',
 };
 
 export default ButtonLink;

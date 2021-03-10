@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const StyledLink = styled(Link)`
+const StyledLink = styled(Link)`
   max-width: 280px;
   width: 40%;
   height: 30px;
@@ -16,3 +16,5 @@ export const StyledLink = styled(Link)`
   justify-content: center;
   text-decoration: none;
 `;
+
+export default StyledLink;

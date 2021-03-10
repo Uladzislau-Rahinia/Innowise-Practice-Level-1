@@ -1,12 +1,10 @@
-import { database } from "core/api/firebase";
+import { database } from 'core/api/firebase';
 
 export const createUserFolder = async (uid) => {
-  const tasksRef = database.ref(`tasks/`);
+  const tasksRef = database.ref('tasks/');
   const newUser = {};
-  newUser[`${uid}`] = "";
-  return tasksRef.update(newUser).then(() => {
-    return true;
-  });
+  newUser[`${uid}`] = '';
+  return tasksRef.update(newUser).then(() => true);
 };
 
 export const getUserData = async (route) => {
@@ -15,6 +13,8 @@ export const getUserData = async (route) => {
     if (snapshot.exists()) {
       return snapshot.val();
     }
+    const message = 'No data availible';
+    throw message;
   });
 };
 
@@ -24,21 +24,15 @@ export const updateUserData = async (updatedData, route) => {
   return database
     .ref()
     .update(updates)
-    .then(() => {
-      return true;
-    });
+    .then(() => true);
 };
 
 export const addUserData = async (newData, route) => {
   const userTasksRef = database.ref(route);
-  return userTasksRef.push(newData).then(() => {
-    return true;
-  });
+  return userTasksRef.push(newData).then(() => true);
 };
 
 export const deleteUserData = async (route) => {
   const userTasksRef = database.ref(route);
-  return userTasksRef.remove().then(() => {
-    return true;
-  });
+  return userTasksRef.remove().then(() => true);
 };

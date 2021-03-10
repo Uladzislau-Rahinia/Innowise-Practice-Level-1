@@ -1,4 +1,5 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   CarouselWrapper,
   CarouselContainer,
@@ -6,11 +7,12 @@ import {
   CarouselContent,
   CarouselButtonLeft,
   CarouselButtonRight,
-} from "./styles";
-import PropTypes from "prop-types";
+} from './styles';
 
 const Carousel = (props) => {
-  const { children, show, setMaxElementsShown, maxElementsShown } = props;
+  const {
+    children, show, setMaxElementsShown, maxElementsShown,
+  } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(children.length);
 
@@ -43,11 +45,11 @@ const Carousel = (props) => {
         <CarouselContentWrapper>
           <CarouselContent
             // style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            show={props.show}
+            show={show}
           >
-            {children.map((value, index) => {
-              if (index >= currentIndex && index < currentIndex + show)
-                return value;
+            {children.filter((value, index) => {
+              if (index >= currentIndex && index < currentIndex + show) { return true; }
+              return false;
             })}
           </CarouselContent>
         </CarouselContentWrapper>

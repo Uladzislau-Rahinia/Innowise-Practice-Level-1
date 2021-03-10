@@ -1,2 +1,3 @@
-import TaskCreatorPage from "./TaskCreator";
+import TaskCreatorPage from './TaskCreator';
+
 export default TaskCreatorPage;
