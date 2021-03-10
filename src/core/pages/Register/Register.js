@@ -1,13 +1,13 @@
 import { React, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import TextInput from "components/textInput";
-import Button from "components/Button";
+import TextInput from "core/components/textInput";
+import Button from "core/components/Button";
 import { RegisterWrapper, RegisterContainer } from "./styles";
-import ToastContainer, { showErrorToast } from "services/showToast";
-import { RegisterUser } from "services/firebaseAuthQueries";
-import { CreateUserFolder } from "services/firebaseDBQueries";
-import RedirectWrapper from "services/redirect";
-import { LINKS } from "utils/constants";
+import ToastContainer, { showErrorToast } from "core/services/showToast";
+import { RegisterUser } from "core/services/firebaseAuthQueries";
+import { CreateUserFolder } from "core/services/firebaseDBQueries";
+import RedirectWrapper from "core/services/redirect";
+import { LINKS } from "core/utils/constants";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");

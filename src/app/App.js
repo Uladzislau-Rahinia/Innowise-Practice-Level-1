@@ -4,11 +4,11 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import HomePage from "pages/HomePage";
-import LoginPage from "pages/Login";
-import RegisterPage from "pages/Register";
-import TaskPage from "pages/TaskCreator";
-import { LINKS } from "utils/constants";
+import HomePage from "core/pages/HomePage";
+import LoginPage from "core/pages/Login";
+import RegisterPage from "core/pages/Register";
+import TaskPage from "core/pages/TaskCreator";
+import { LINKS } from "core/utils/constants";
 
 function App() {
   return (

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { format } from "date-fns";
-import Button from "components/Button";
-import TextInput from "components/textInput";
-import Calendar from "components/Calendar";
-import ButtonLink from "components/Link";
+import Button from "core/components/Button";
+import TextInput from "core/components/textInput";
+import Calendar from "core/components/Calendar";
+import ButtonLink from "core/components/Link";
 import {
   TaskCreatorContainer,
   TaskCreatorWrapper,
@@ -12,16 +12,16 @@ import {
 import ToastContainer, {
   showErrorToast,
   showSuccessToast,
-} from "services/showToast";
+} from "core/services/showToast";
 import {
   UpdateUserData,
   AddUserData,
   DeleteUserData,
-} from "services/firebaseDBQueries";
-import { GetUserId } from "services/firebaseAuthQueries";
-import { auth } from "api/firebase";
-import RedirectWrapper from "services/redirect";
-import { LINKS } from "utils/constants";
+} from "core/services/firebaseDBQueries";
+import { GetUserId } from "core/services/firebaseAuthQueries";
+import { auth } from "core/api/firebase";
+import RedirectWrapper from "core/services/redirect";
+import { LINKS } from "core/utils/constants";
 import PropTypes from "prop-types";
 
 const TaskPage = (props) => {

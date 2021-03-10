@@ -1,7 +1,7 @@
 import React from "react";
 import Checkbox from "../Checkbox";
 import { TaskListContainer, StyledLink, Task } from "./styles";
-import { LINKS } from "utils/constants";
+import { LINKS } from "core/utils/constants";
 import PropTypes from "prop-types";
 
 const TaskList = (props) => {

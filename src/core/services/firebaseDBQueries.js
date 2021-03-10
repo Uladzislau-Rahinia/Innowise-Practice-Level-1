@@ -1,4 +1,4 @@
-import { database } from "api/firebase";
+import { database } from "core/api/firebase";
 
 export const CreateUserFolder = async (uid) => {
   const tasksRef = database.ref(`tasks/`);

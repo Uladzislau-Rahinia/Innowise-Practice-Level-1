@@ -1,12 +1,12 @@
 import { React, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import TextInput from "components/textInput";
-import Button from "components/Button";
-import { LoginUser } from "services/firebaseAuthQueries";
+import TextInput from "core/components/textInput";
+import Button from "core/components/Button";
+import { LoginUser } from "core/services/firebaseAuthQueries";
 import { LoginWrapper, LoginContainer } from "./styles";
-import ToastContainer, { showErrorToast } from "services/showToast";
-import { LINKS } from "utils/constants";
-import RedirectWrapper from "services/redirect";
+import ToastContainer, { showErrorToast } from "core/services/showToast";
+import { LINKS } from "core/utils/constants";
+import RedirectWrapper from "core/services/redirect";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

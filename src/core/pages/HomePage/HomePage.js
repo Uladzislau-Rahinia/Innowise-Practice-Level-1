@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { format } from "date-fns";
-import TaskList from "components/TaskList";
-import Calendar from "components/Calendar";
-import Button from "components/Button/Button";
-import ButtonLink from "components/Link/";
+import TaskList from "core/components/TaskList";
+import Calendar from "core/components/Calendar";
+import Button from "core/components/Button/Button";
+import ButtonLink from "core/components/Link";
 import { TodoListWrapper, ButtonWrapper } from "./styles";
-import { UpdateUserData, GetUserData } from "services/firebaseDBQueries";
-import { auth } from "api/firebase";
-import { GetUserId, LogoutUser } from "services/firebaseAuthQueries";
+import { UpdateUserData, GetUserData } from "core/services/firebaseDBQueries";
+import { auth } from "core/api/firebase";
+import { GetUserId, LogoutUser } from "core/services/firebaseAuthQueries";
 import userDataReducer from "./reducers/UserDataReducer";
-import RedirectWrapper from "services/redirect";
-import { LINKS } from "utils/constants";
+import RedirectWrapper from "core/services/redirect";
+import { LINKS } from "core/utils/constants";
 
 const HomePage = () => {
   const [isUserLoggedIn, setUserLoggedIn] = useState(true);

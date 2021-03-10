@@ -1,5 +1,5 @@
-import { auth } from "api/firebase";
-import { ERROR_MESSAGES } from "utils/errors";
+import { auth } from "core/api/firebase";
+import { ERROR_MESSAGES } from "core/utils/errors";
 
 export const LoginUser = async (email, password) => {
   let result = {};
