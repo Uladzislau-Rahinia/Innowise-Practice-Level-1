@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+const Button = styled.button`
   max-width: 280px;
   width: 40%;
   height: 30px;
@@ -13,4 +13,4 @@ const StyledButton = styled.button`
   font-size: 14px;
 `;
 
-export default StyledButton;
+export default Button;

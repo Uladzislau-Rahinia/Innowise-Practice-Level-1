@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import Button from 'core/components/Button';
-import TextInput from 'core/components/textInput';
+import Button from 'core/components/styled/Button';
+import TextInput from 'core/components/styled/TextInput';
 import Calendar from 'core/components/Calendar';
-import ButtonLink from 'core/components/Link';
+import ButtonLink from 'core/components/styled/ButtonLink';
 import ToastContainer, {
   showErrorToast,
   showSuccessToast,

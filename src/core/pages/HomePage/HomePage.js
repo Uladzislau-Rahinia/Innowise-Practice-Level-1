@@ -4,8 +4,8 @@ import React, {
 import { format } from 'date-fns';
 import TaskList from 'core/components/TaskList';
 import Calendar from 'core/components/Calendar';
-import Button from 'core/components/Button/Button';
-import ButtonLink from 'core/components/Link';
+import Button from 'core/components/styled/Button';
+import ButtonLink from 'core/components/styled/ButtonLink';
 import { updateUserData, getUserData } from 'core/services/firebaseDBQueries';
 import { auth } from 'core/api/firebase';
 import { getUserId, logoutUser } from 'core/services/firebaseAuthQueries';

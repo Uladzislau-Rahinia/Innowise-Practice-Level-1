@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import TextInput from 'core/components/textInput';
-import Button from 'core/components/Button';
+import TextInput from 'core/components/styled/TextInput';
+import Button from 'core/components/styled/Button';
 import { loginUser } from 'core/services/firebaseAuthQueries';
 import ToastContainer, { showErrorToast } from 'core/services/showToast';
 import LINKS from 'core/utils/constants';
