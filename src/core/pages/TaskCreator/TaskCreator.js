@@ -131,14 +131,17 @@ const TaskPage = (props) => {
         />
         <Button
           onClick={handleTaskSave}
-          text={isUpdate ? 'Update task' : 'Create Task'}
-        />
+
+        >
+          {isUpdate ? 'Update task' : 'Create Task'}
+
+        </Button>
         {isUpdate ? (
-          <Button onClick={handleTaskDelete} isDanger text="Delete task" />
+          <Button onClick={handleTaskDelete} isDanger>Delete task</Button>
         ) : (
           ''
         )}
-        <ButtonLink to={LINKS.HOME} text="Go back" />
+        <ButtonLink to={LINKS.HOME}>Go back</ButtonLink>
       </TaskCreatorContainer>
       <ToastContainer />
     </TaskCreatorWrapper>

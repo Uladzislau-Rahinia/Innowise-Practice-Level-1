@@ -73,9 +73,10 @@ const HomePage = () => {
       <ButtonWrapper>
         <ButtonLink
           to={{ pathname: LINKS.TASK, state: { isUpdate: false } }}
-          text="+ Add new task"
-        />
-        <Button onClick={handleLogOut} text="Log Out" />
+        >
+          Add new task
+        </ButtonLink>
+        <Button onClick={handleLogOut}>Log Out</Button>
       </ButtonWrapper>
     </TodoListWrapper>
   );

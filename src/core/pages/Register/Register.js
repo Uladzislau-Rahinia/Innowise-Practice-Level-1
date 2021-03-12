@@ -57,7 +57,7 @@ const RegisterPage = () => {
           type="password"
           placeholder="Comfirm password"
         />
-        <Button onClick={handleSignUp} text="Sign Up" />
+        <Button onClick={handleSignUp}>Sign Up</Button>
         <Link to="/login">Already have an account? Sign In here!</Link>
       </RegisterContainer>
       <ToastContainer />

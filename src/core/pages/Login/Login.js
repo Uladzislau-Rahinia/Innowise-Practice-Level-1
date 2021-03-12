@@ -44,7 +44,7 @@ const LoginPage = () => {
           type="password"
           placeholder="Password"
         />
-        <Button onClick={handleLogin} text="Sign In" />
+        <Button onClick={handleLogin}>Sign In</Button>
         <Link to="/register">Dont have an account? Sign Up here!</Link>
       </LoginContainer>
       <ToastContainer />
