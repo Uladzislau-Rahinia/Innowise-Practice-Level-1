@@ -2,7 +2,7 @@ import React, {
   useEffect, useReducer, useState,
 } from 'react';
 import { format } from 'date-fns';
-import TaskList from 'core/components/TaskList';
+import TaskList from 'core/pages/HomePage/components/TaskList';
 import Calendar from 'core/components/Calendar';
 import Button from 'core/components/styled/Button';
 import ButtonLink from 'core/components/styled/ButtonLink';

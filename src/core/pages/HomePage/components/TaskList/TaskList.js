@@ -1,7 +1,7 @@
 import React from 'react';
 import LINKS from 'core/utils/constants';
 import PropTypes from 'prop-types';
-import Checkbox from '../Checkbox';
+import Checkbox from 'core/pages/HomePage/components/Checkbox';
 import { TaskListContainer, StyledLink, Task } from './styles';
 
 const TaskList = (props) => {

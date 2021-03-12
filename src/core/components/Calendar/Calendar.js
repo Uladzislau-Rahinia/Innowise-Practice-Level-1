@@ -3,9 +3,9 @@ import {
 } from 'react';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
+import Carousel from 'core/components/Carousel';
 import dayConfig from './dayConfig';
 import monthConfig from './monthConfig';
-import Carousel from '../Carousel';
 import { CalendarContainer, CalendarItem, Markers } from './styles';
 
 const Calendar = (props) => {
