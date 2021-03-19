@@ -57,12 +57,16 @@ Used to format date in string for better use
 Used to deploy app to Github Pages
 
 ## Folder structure
-    └──src                  #Main folder for source code
-        ├──api              #Holds api initializing script
-        ├──app              #Holds main component of the app
-        ├──components       #Small components, which don't hold any business logic, can be reused in different features
-        ├──features         #Big components, representing features this app has, they hold buisness logic like fetching data
-        └──index.js         #Entry point of an app, renders main component
+    └──src                            #Main folder for source code       
+        ├──app                        #Holds main component
+        ├──core
+        |   ├──api                    #Holds api initializing script
+        |   |──components             #Small components, which don't hold any business logic, can be reused in different pages
+        |   ├──pages                  #Big components, representing pages this app has, they hold buisness logic like fetching data
+        |   ├──services               #Services like data fetching and sending methods
+        |   └──utils                  #Utility features like constants
+        └──index.js                   #Entry point of an app, renders main component
+
 
 
 
